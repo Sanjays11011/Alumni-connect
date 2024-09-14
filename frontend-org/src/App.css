@@ -1,0 +1,21 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 0;  /* Remove scrollbar space */
+  height: 0;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: transparent; /* Make the scrollbar thumb invisible */
+}
+
+.job-opening {
+    margin-left: 12px;    
+    padding-right: 12px;  
+    font-size: 1.125rem;  
+    font-weight: bold;    
+    opacity: 0.6;         
+    border-right: 2px solid black;  
+  }
+  

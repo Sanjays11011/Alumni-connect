@@ -1,0 +1,139 @@
+{
+  "jobs": [
+    {
+      "id": 1,
+      
+      "name": "Undergraduate required for Voice Process at Tech Mahindra",
+      "alumni-name":"Sanjay",
+      "company": "Tech Mahindra",
+      "timing": "Full Time",
+      "location": "Bangalore",
+      "salary": "2-10 LPA",
+      "requirements": [
+        "Customer Support",
+        "Inbound calls",
+        "Customer Queries",
+        "Query Resolution"
+      ],
+      "posted": "5 Days ago"
+    },
+    {
+      "id": 2,
+      "name": "Software Engineer at Infosys",
+      "alumni-name":"Ragavan",
+      "company": "Infosys",
+      "timing": "Full Time",
+      "location": "Hyderabad",
+      "salary": "4-12 LPA",
+      "requirements": [
+        "Java Development",
+        "Spring Boot",
+        "Microservices",
+        "Cloud Computing"
+      ],
+      "posted": "3 Days ago"
+    },
+    {
+      "id": 3,
+      "name": "Front-End Developer at TCS",
+      "alumni-name":"Pavithra",
+      "company": "Tata Consultancy Services",
+      "timing": "Full Time",
+      "location": "Mumbai",
+      "salary": "3-8 LPA",
+      "requirements": [
+        "React.js",
+        "CSS",
+        "HTML",
+        "JavaScript",
+        "REST APIs"
+      ],
+      "posted": "7 Days ago"
+    },
+    {
+      "id": 4,
+      "name": "Data Analyst at Accenture",
+      "alumni-name":"Shine Sweety",
+      "company": "Accenture",
+      "timing": "Full Time",
+      "location": "Pune",
+      "salary": "5-15 LPA",
+      "requirements": [
+        "SQL",
+        "Data Visualization",
+        "Excel",
+        "Python",
+        "Data Mining"
+      ],
+      "posted": "2 Days ago"
+    },
+    {
+      "id": 5,
+      "name": "Product Manager at Amazon",
+      "alumni-name":"SabariAdhith",
+      "company": "Amazon",
+      "timing": "Full Time",
+      "location": "Bangalore",
+      "salary": "12-25 LPA",
+      "requirements": [
+        "Project Management",
+        "Agile Methodologies",
+        "Communication Skills",
+        "Market Analysis",
+        "Leadership"
+      ],
+      "posted": "1 Day ago"
+    },
+    {
+      "id": 6,
+      "name": "Backend Developer at Google",
+      "alumni-name":"Vijayraj",
+      "company": "Google",
+      "timing": "Full Time",
+      "location": "Gurgaon",
+      "salary": "10-20 LPA",
+      "requirements": [
+        "Node.js",
+        "MongoDB",
+        "API Development",
+        "Microservices",
+        "Cloud Platforms"
+      ],
+      "posted": "4 Days ago"
+    },
+    {
+      "id": 7,
+      "name": "UI/UX Designer at Flipkart",
+      "alumni-name":"Udhaya Dhanush",
+      "company": "Flipkart",
+      "timing": "Full Time",
+      "location": "Bangalore",
+      "salary": "6-14 LPA",
+      "requirements": [
+        "UI/UX Design",
+        "Figma",
+        "Adobe XD",
+        "Wireframing",
+        "Prototyping"
+      ],
+      "posted": "6 Days ago"
+    },
+    {
+      "id": 8,
+      "name": "DevOps Engineer at IBM",
+      "alumni-name":"Vishal ",
+      "company": "IBM",
+      "timing": "Full Time",
+      "location": "Chennai",
+      "salary": "8-16 LPA",
+      "requirements": [
+        "CI/CD Pipelines",
+        "Docker",
+        "Kubernetes",
+        "AWS",
+        "Automation Tools"
+      ],
+      "posted": "2 Weeks ago"
+    }
+  ]
+}

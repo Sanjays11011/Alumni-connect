@@ -1,0 +1,59 @@
+{
+    "title": "Donation Request",
+    "intro": "We are excited to invite you to be a part of something transformative! Our students are working on groundbreaking projects and innovations that have the potential to make a real impact on industries and communities worldwide.",
+    "projects": [
+      {
+        "projectTitle": "Request for Student Innovation Project - IoT-based Smart Parking Solutions",
+        "sections": [
+          {
+            "heading": "Request for Student Innovation Project",
+            "content": "On behalf of our students, who are currently working on an exciting project related to IoT-based smart parking solutions, we are reaching out to seek your expertise and assistance. To effectively plan and budget their project, they require detailed information on the costs associated with various components of such systems."
+          },
+          {
+            "heading": "Project Review",
+            "content": "We are developing an innovative IoT-based smart parking solution aimed at improving urban parking efficiency and reducing congestion. This project involves creating a system that will provide real-time parking space availability, automated payment processing, and enhanced user experience."
+          }
+        ],
+        "requirements": [
+          { "item": "Microcontrollers", "cost": 1245 },
+          { "item": "Sensors", "cost": 1245 },
+          { "item": "Communication Modules", "cost": 1245 },
+          { "item": "Power Supply", "cost": 1245 }
+        ],
+        "totalCost": 4980,
+        "paymentInfo": {
+          "method": "Google Pay",
+          "number": "7826983555"
+        },
+        "contactInfo": "For more information about the project or to discuss potential partnerships, please reach out to us at ",
+        "contactEmail": "studentinnovation@ksrct.net"
+      },
+      {
+        "projectTitle": "Request for Student Innovation Project - Solar-Powered Energy Storage System",
+        "sections": [
+          {
+            "heading": "Request for Student Innovation Project",
+            "content": "Our students are working on a project to develop an efficient solar-powered energy storage system. We are seeking financial support to help them achieve their goals and build a working prototype that can be tested and deployed in real-world scenarios."
+          },
+          {
+            "heading": "Project Review",
+            "content": "This project involves designing a state-of-the-art energy storage system that maximizes energy capture and minimizes loss. It will include a user-friendly interface for monitoring energy levels and optimizing storage efficiency. The innovation aims to contribute to the global push for clean energy."
+          }
+        ],
+        "requirements": [
+          { "item": "Solar Panels", "cost": 3500 },
+          { "item": "Batteries", "cost": 4500 },
+          { "item": "Inverters", "cost": 2000 },
+          { "item": "Wiring & Installation", "cost": 1500 }
+        ],
+        "totalCost": 11500,
+        "paymentInfo": {
+          "method": "Google Pay",
+          "number": "7826983555"
+        },
+        "contactInfo": "For more details about the project or to discuss potential collaborations, feel free to reach out to us at ",
+        "contactEmail": "renewableenergy@ksrct.net"
+      }
+    ]
+  }
+  
