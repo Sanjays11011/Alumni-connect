@@ -14,83 +14,14 @@ const Profile = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
 
-  useEffect(() => {
-    dispatch(fetchUser());
-  }, [dispatch]);
 
-  useEffect(() => {
-    // Initialize the details state with the current user details when the user object changes
-    if (user) {
-      setDetails({
-        college: user.college || "",
-        degree: user.degree || "",
-        branch: user.branch || "",
-        graduationDate: user.graduationDate || "",
-        mobileNumber: user.mobileNumber || "",
-        yearsOfExperience: user.yearsOfExperience || "",
-        workingPlace: user.workingPlace || "",
-        domain: user.domain || "",
-      });
-    }
-  }, [user]);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/");
-  };
 
-  const handleInputChange = (e) => {
-    setDetails({
-      ...details,
-      [e.target.name]: e.target.value,
-    });
-  };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const token = localStorage.getItem("token");
-      const response = await axios.put(
-        "http://localhost:3001/user/details",
-        details,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      setMessage(response.data.message);
-      dispatch(fetchUser());
-      //setEditing(false);
-      setTimeout(() => setMessage(""), 3000); // Clear the message after 3 seconds
-    } catch (error) {
-      console.error("Error updating details:", error);
-      setMessage("Error updating details");
-      setTimeout(() => setMessage(""), 3000); // Clear the message after 3 seconds
-    }
-  };
 
-  const handleProfileImageChange = async (e) => {
-    const file = e.target.files[0];
-    const formData = new FormData();
-    formData.append("profileImage", file);
 
-    try {
-      const token = localStorage.getItem("token");
-      const response = await axios.put(
-        "http://localhost:3001/user/profile-image",
-        formData,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      setMessage(response.data.message);
-      dispatch(fetchUser());
-      setTimeout(() => setMessage(""), 3000); // Clear the message after 3 seconds
-    } catch (error) {
-      console.error("Error updating profile image:", error);
-      setMessage("Error updating profile image");
-      setTimeout(() => setMessage(""), 3000); // Clear the message after 3 seconds
-    }
-  };
+
+
 
   if (!user) return <div>Loading...</div>;
 
@@ -108,7 +39,7 @@ const Profile = () => {
           <h1 className="text-3xl  ml-20 font-manrope">Profile</h1>
         </div>
 
-        <form className="w-3/4 h-3/4 p-4" onSubmit={handleSubmit}>
+        <form className="w-3/4 h-3/4 p-4" >
           <div className="flex justify-around mb-6">
             <div className="mb-4">
               <label className="font-manrope text-2xl">
@@ -123,7 +54,7 @@ const Profile = () => {
                   />
                 ) : (
                   <p className="font-manrope font-semibold py-3 border-b w-full">
-                    {user.firstName} {user.lastName}
+                    Sanjay
                   </p>
                 )}
               </label>
@@ -141,7 +72,7 @@ const Profile = () => {
                   />
                 ) : (
                   <p className="font-manrope font-semibold py-3 border-b w-full capitalize">
-                    {user.role}
+                    Edho onnu
                   </p>
                 )}
               </label>

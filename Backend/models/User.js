@@ -1,31 +1,48 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-
+const jwt = require('jsonwebtoken');
+const joi = require('joi');
+const passwordComplexity = require('joi-password-complexity');
 const userSchema = new mongoose.Schema({
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  role: { type: String, required: true },
-  degree: { type: String },
-  branch: { type: String },
-  yearsOfExperience: { type: String },
-  workingPlace: { type: String },
-  domain: { type: String },
-  mobileNumber: { type: String },
-  college: { type: String },
-  graduationDate: { type: Date },
-  profileImageUrl: { type: String },
+    firstname: {
+        type: String,
+        required: true
+    },
+    lastname: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    role: {
+        type: String,
+        enum: ['Student', 'Alumni'],
+        required: true
+    }
 });
 
+userSchema.methods.generateAuthToken = function (){
+    const token = jwt.sign({_id: this._id}, process.env.SECRET_KEY,{expiresIn: '7d'});
+    return token;
+};
 
+const User = mongoose.model("user", userSchema);
 
-userSchema.pre('save', async function(next) {
-  if (this.isModified('password')) {
-    this.password = await bcrypt.hash(this.password, 10);
-  }
-  next();
-});
+const validate = (data) => {
+    const schema = joi.object({
+        firstname: joi.string().required().label("First Name"),
+        lastname: joi.string().required().label("Last Name"),
+        email: joi.string().email().required().label("Email"),
+        password: passwordComplexity().required().label("Password"),
+        role: joi.string().valid('Student', 'Alumni').required().label("Role")
+    });
+    return schema.validate(data);
+}
 
-module.exports = mongoose.model('User', userSchema);
-
+module.exports = {User, validate}

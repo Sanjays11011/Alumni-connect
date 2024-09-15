@@ -1,27 +1,29 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
-  const navigate = useNavigate();
+  const [message,setMessage] = useState("");
+  const [data,setData] = useState({
+    email: "",
+    password: ""
+  });
+  
 
   const handleLogin = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
     try {
-      const response = await axios.post("http://localhost:3001/login", {
-        email,
-        password,
-      });
+      const response = await axios.post("http://localhost:3001/api/auth",data);
       localStorage.setItem("token", response.data.token);
-      navigate("/home");
+      window.location = "/home";
     } catch (error) {
       setMessage("Login failed");
     }
+  };
+
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
   };
 
   return (
@@ -37,8 +39,8 @@ const Login = () => {
           <div className="w-full">
             <input
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value = {data.email}
+              onChange={handleChange}
               id="email"
               name="email"
               className="w-full p-2 rounded-lg text-lg font-manrope text-[#494E58] bg-input focus:outline-none"
@@ -48,8 +50,8 @@ const Login = () => {
           <div className="w-full">
             <input
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={data.password}
+              onChange={handleChange}
               id="password"
               name="password"
               className="w-full p-2 rounded-lg text-lg font-manrope text-[#494E58] bg-input focus:outline-none"

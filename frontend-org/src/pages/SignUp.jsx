@@ -1,56 +1,58 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const SignUp = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [role, setRole] = useState("Student"); // Default value for role
+  const navigate = useNavigate();
+  const [data,setData] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+    role: "Student"
+  });
 
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
 
   const inputFields = [
     {
       type: "text",
       placeholder: "First Name",
-      value: firstName,
-      onChange: (e) => setFirstName(e.target.value)
+      name: "firstname",
+      value: data.firstName,
+      onChange: handleChange
     },
     {
       type: "text",
       placeholder: "Last Name",
-      value: lastName,
-      onChange: (e) => setLastName(e.target.value)
+      name: "lastname",
+      value: data.lastName,
+      onChange: handleChange
     },
     {
       type: "email",
       placeholder: "Email",
-      value: email,
-      onChange: (e) => setEmail(e.target.value)
+      name: "email",
+      value: data.email,
+      onChange: handleChange
     },
     {
       type: "password",
       placeholder: "Password",
-      value: password,
-      onChange: (e) => setPassword(e.target.value)
+      name: "password",
+      value: data.password,
+      onChange: handleChange
     }
   ];
-
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://127.0.0.1:3001/signup", {
-        firstName,
-        lastName,
-        email,
-        password,
-        role
-      });
+      const response = await axios.post("http://127.0.0.1:3001/api/users", data);
       alert(response.data.message);
-      window.location.href = "/"; // Redirect to login page after successful signup
+      navigate("/");
     } catch (error) {
       console.error("Error signing up:", error);
       alert("Failed to sign up");
@@ -69,6 +71,7 @@ const SignUp = () => {
               <input
                 key={index}
                 type={field.type}
+                name={field.name}
                 placeholder={field.placeholder}
                 value={field.value}
                 onChange={field.onChange}
@@ -80,6 +83,7 @@ const SignUp = () => {
             <input
               key={index}
               type={field.type}
+              name = {field.name}
               placeholder={field.placeholder}
               value={field.value}
               onChange={field.onChange}
@@ -87,7 +91,7 @@ const SignUp = () => {
             />
           ))}
           
-          <select name="role" id="role" value={role} onChange={(e) => setRole(e.target.value)} className="w-full p-2 rounded-lg text-lg font-manrope text-[#494E58] bg-input focus:outline-none">
+          <select name="role" id="role" value={data.role} onChange={handleChange} className="w-full p-2 rounded-lg text-lg font-manrope text-[#494E58] bg-input focus:outline-none">
             <option value="student">Student</option>
             <option value="alumni">Alumni</option>
           </select>
