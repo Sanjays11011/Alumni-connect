@@ -12,7 +12,7 @@ const Login = () => {
   
 
   const handleLogin = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+    e.preventDefault(); 
     try {
       const response = await axios.post("http://localhost:3001/api/auth",data);
       localStorage.setItem("token", response.data.token);

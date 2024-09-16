@@ -1,22 +1,33 @@
+// server.js
 const express = require('express');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 const cors = require('cors');
-require('dotenv').config();
-const app = express();
-const connection = require('./db');
-const userRoutes = require('./routes/users');
 const authRoutes = require('./routes/auth');
-//database connection
-connection();
+const profileRoutes = require('./routes/profile');
+
+dotenv.config();
+
+
+const app = express();
 app.use(express.json());
-app.use(cors());
 
-//routes
-app.use('/api/users', userRoutes);
+app.use(cors({
+  origin: 'http://localhost:5173', // Allow requests from this origin (frontend URL)
+  credentials: true // If you want to allow cookies to be sent, set this to true
+}));
+// Connect to MongoDB
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}).then(() => console.log('MongoDB connected'))
+  .catch(err => console.log('MongoDB connection error', err));
+
+// Routes
 app.use('/api/auth', authRoutes);
+app.use('/api', profileRoutes);
 
-
-const port = process.env.PORT || 3001;
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
-})
-
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
