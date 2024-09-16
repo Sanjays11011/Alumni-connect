@@ -13,16 +13,16 @@ const Profile = () => {
     workingcompany: "",
     workingdomain: "",
     degree: "",
-    passingOutYear: "",
-    whichYear: "",
+    passingoutyear: "",
+    studyyear: "",
   });
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const token = localStorage.getItem("token"); // Get the token from localStorage
+        const token = localStorage.getItem("token"); 
         const response = await axios.get("http://localhost:3001/api/profile", {
-          headers: { Authorization: `Bearer ${token}` }, // Include token in the request
+          headers: { Authorization: `Bearer ${token}` }, 
         });
         setUserData(response.data);
         setDetails({
@@ -33,8 +33,8 @@ const Profile = () => {
           workingcompany: response.data.workingcompany || "",
           workingdomain: response.data.workingdomain || "",
           degree: response.data.degree || "",
-          passingOutYear: response.data.passingOutYear || "",
-          whichYear: response.data.whichYear || "",
+          passingoutyear: response.data.passingoutyear || "",
+          studyyear: response.data.studyyear || "",
         });
       } catch (error) {
         console.log("Error fetching profile:", error);
@@ -48,9 +48,27 @@ const Profile = () => {
     setDetails((prevDetails) => ({ ...prevDetails, [name]: value }));
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const token = localStorage.getItem('token');
+      await axios.put('http://localhost:3001/api/profile', details, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setEditing(false);
+      alert('Profile updated successfully!');
+    } catch (err) {
+      console.error('Error updating profile:', err);
+      alert('Failed to update profile.');
+    }
+  };
+
   const handleLogout = () => {
     localStorage.removeItem("token");
-    window.location.href = "/login"; // Redirect to login after logout
+    window.location.href = "/login"; 
   };
 
   if (!userData) return <p>Loading...</p>;
@@ -69,7 +87,7 @@ const Profile = () => {
           <h1 className="text-3xl ml-20 font-manrope">Profile</h1>
         </div>
 
-        <form className="w-3/4 h-3/4 p-4">
+        <form className="w-3/4 h-3/4 p-4" onSubmit={handleSubmit}>
           <div className="flex justify-around mb-6">
             <div className="mb-4">
               <label className="font-manrope text-2xl">
@@ -131,6 +149,7 @@ const Profile = () => {
           </div>
 
           {details.role === "Alumni" && (
+           
             <div className="flex justify-around mb-6">
               <div className="mb-4 ml-11">
                 <label className="font-manrope text-2xl">
@@ -170,24 +189,26 @@ const Profile = () => {
                 </label>
               </div>
             </div>
+            
           )}
 
           {details.role === "Student" && (
+            
             <div className="flex justify-around mb-6">
               <div className="mb-4 ml-11">
                 <label className="font-manrope text-2xl">
-                  Which Year:{" "}
+                  Studying Year:{" "}
                   {editing ? (
                     <input
                       type="text"
-                      name="whichYear"
-                      value={details.whichYear}
+                      name="studyyear"
+                      value={details.studyyear}
                       onChange={handleInputChange}
                       className="py-3 border-b-2 border-gray-300 focus:border-black outline-none"
                     />
                   ) : (
                     <p className="font-manrope font-semibold py-3 border-b w-full">
-                      {details.whichYear}
+                      {details.studyyear}
                     </p>
                   )}
                 </label>
@@ -199,14 +220,14 @@ const Profile = () => {
                   {editing ? (
                     <input
                       type="text"
-                      name="passingOutYear"
-                      value={details.passingOutYear}
+                      name="passingoutyear"
+                      value={details.passingoutyear}
                       onChange={handleInputChange}
                       className="py-3 border-b-2 border-gray-300 focus:border-black outline-none"
                     />
                   ) : (
                     <p className="font-manrope font-semibold py-3 border-b w-full">
-                      {details.passingOutYear}
+                      {details.passingoutyear}
                     </p>
                   )}
                 </label>
@@ -221,7 +242,7 @@ const Profile = () => {
 
           <div className="flex justify-center space-x-6">
             <button
-              type="button"
+              type={editing ? "button" : "submit"}
               className="bg-primary text-white font-manrope flex justify-center w-1/3 rounded-lg px-4 py-2 mt-4"
               onClick={() => setEditing(!editing)}
             >
