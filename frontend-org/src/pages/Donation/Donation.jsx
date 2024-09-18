@@ -1,5 +1,5 @@
 import React from "react";
-import donationData from "../Datas/donationData.json";
+import donationData from "../../Datas/donationData.json";
 
 const Donation = () => {
   return (

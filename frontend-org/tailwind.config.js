@@ -10,12 +10,13 @@ module.exports = {
     extend: {
       colors:{
         'input':'#E8F0FD',
-        'primary':'#8F75D0',
-        'searchbar':'#20213D'
+        'primary':'#6993FF',
+        'searchbar':'#20213D',
+        'secondary':'#EFF3FF',
 
       },
       fontFamily: {
-         'manrope':"Manrope"
+         'manrope':"Outfit"
       }
      
 

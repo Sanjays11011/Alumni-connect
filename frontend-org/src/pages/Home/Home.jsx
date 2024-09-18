@@ -1,14 +1,26 @@
-import React from "react";
+import React , { useState } from "react";
 import { Icon } from "@iconify/react";
-import jobData from "../Datas/jobData.json";
-import eventsData from "../Datas/eventsData.json";
+import jobData from "../../Datas/jobData.json";
+import eventsData from "../../Datas/eventsData.json";
+import AddJobs from "./AddJobs";
 
 const Home = () => {
+  const [isOpen,setIsOpen] = useState(false);
+  const OpenModel = () => {
+    setIsOpen(true);
+  }
+
+  const CloseModel = () => {
+    setIsOpen(false);
+  }
   return (
-    <div className="pt-16 w-[98vw] h-svh flex flex-row font-manrope ">
-      <div className="w-3/5 p-3 h-svh overflow-y-auto custom-scrollbar border-r ">
-        <h1 className="text-3xl font-manrope mb-7">Job & Intern Openings </h1>
-        
+    <div className="pt-16 w-svh h-svh flex flex-row font-manrope ">
+      <div className="w-3/5 p-3 h-svh overflow-y-auto custom-scrollbar border-r">
+      <div className="flex gap-3">
+        <h1 className="text-3xl font-manrope ">Job & Intern Openings </h1>
+        <button className=" bg-primary duration-200 hover:bg-blue-500  text-white rounded-xl px-4 py-2 mb-7" onClick={OpenModel}>Add Jobs</button>
+        {isOpen && <AddJobs onClose={CloseModel} />}
+      </div>
         <div>
           {jobData.jobs.map((job) => (
             <div

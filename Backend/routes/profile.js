@@ -18,11 +18,11 @@ router.get('/profile', authMiddleware, async (req, res) => {
 });
 
 router.put('/profile', authMiddleware, async (req, res) => {
-  const { firstname,lastname,email, role, yearsofexperience, workingcompany, workingdomain, studyyear, passingoutyear,degree} = req.body;
+  const { firstname,lastname,email, role, yearsofexperience, workingcompany, workingdomain, studyyear, passingoutyear,degree,successStory} = req.body;
 
   try {
     const user = await User.findByIdAndUpdate(req.user._id, {
-      firstname,lastname,email, role, yearsofexperience, workingcompany, workingdomain, studyyear, passingoutyear,degree,
+      firstname,lastname,email, role, yearsofexperience, workingcompany, workingdomain, studyyear, passingoutyear,degree,successStory
     }, { new: true });
     if(!user){
       return res.status(404).json({message: "user not found"});

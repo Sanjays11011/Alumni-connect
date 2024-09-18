@@ -2,16 +2,16 @@ import React from 'react'
 
 const Message = () => {
   return (
-    <div className="h-screen mt-16 flex">
+    <div className="h-screen pt-16  flex font-manrope">
       
-      <div className="w-2/5 bg-gray-100 border-r border-gray-300 flex flex-col">
+      <div className="w-2/5  border-r border-gray-300 flex flex-col">
         {/* Header */}
         <div className="p-4 bg-white border-b border-gray-300">
           <h2 className="font-bold text-lg">Chat</h2>
         </div>
 
         {/* Search Bar */}
-        <div className="p-2 bg-gray-200">
+        <div className="p-2 bg-secondary">
           <input
             type="text"
             placeholder="Search or start new chat"
@@ -20,7 +20,7 @@ const Message = () => {
         </div>
 
         {/* Contacts List */}
-        <div className="flex-grow overflow-y-auto">
+        <div className="flex-grow overflow-y-auto bg-secondary">
           {[...Array(5)].map((_, i) => (
             <div
               key={i}
@@ -54,8 +54,8 @@ const Message = () => {
 
         <div className="flex-grow p-4 overflow-y-auto">
           <div className="mb-4">
-            <div className="bg-green-100 p-2 rounded inline-block">
-              Hi, how are you?
+            <div className="bg-primary bg-opacity-40 text-black p-2 rounded inline-block">
+             <p>Hi, how are you?</p> 
             </div>
           </div>
           <div className="mb-4 text-right">
@@ -65,12 +65,18 @@ const Message = () => {
           </div>
         </div>
 
-        <div className="p-4 border-t border-gray-300">
+        <div className="p-4 border-t flex border-gray-300">
           <input
             type="text"
             placeholder="Type a message..."
-            className="w-full p-2 border rounded"
+            className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+          <button
+              type="submit"
+              className="ml-2 bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors duration-300"
+            >
+              Send
+            </button>
         </div>
       </div>
     </div>

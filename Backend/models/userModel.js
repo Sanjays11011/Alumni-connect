@@ -48,6 +48,10 @@ const userSchema = new mongoose.Schema({
   degree: {
     type: String,
     default: null
+  },
+  successStory: {
+    type: String,
+    default: null
   }
 });
 
