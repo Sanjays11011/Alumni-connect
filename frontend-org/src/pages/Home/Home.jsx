@@ -98,9 +98,9 @@ const Home = () => {
       {/* Events Section */}
       <div className="w-2/5 p-3 h-svh overflow-y-auto custom-scrollbar">
         <div className="flex gap-3">
-          <h1 className="text-3xl font-manrope ">Events</h1>
+          <h1 className="text-3xl font-manrope mb-5">Events</h1>
           {/* Conditionally render Add Events button based on user role */}
-          {userRole !== "Student" && (
+          {userRole !== "Alumni" && (
             <button
               className=" bg-primary duration-200 hover:bg-blue-500  text-white rounded-xl px-4 py-2 mb-7"
               onClick={() => setIsEventsOpen(true)}
