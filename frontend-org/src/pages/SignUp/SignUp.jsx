@@ -21,14 +21,14 @@ const SignUp = () => {
       type: "text",
       placeholder: "First Name",
       name: "firstname",
-      value: data.firstName,
+      value: data.firstname,
       onChange: handleChange
     },
     {
       type: "text",
       placeholder: "Last Name",
       name: "lastname",
-      value: data.lastName,
+      value: data.lastname,
       onChange: handleChange
     },
     {
@@ -50,7 +50,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://127.0.0.1:3001/api/users", data);
+      const response = await axios.post("http://127.0.0.1:3001/api/auth/signup", data);
       alert(response.data.message);
       navigate("/");
     } catch (error) {
@@ -92,8 +92,8 @@ const SignUp = () => {
           ))}
           
           <select name="role" id="role" value={data.role} onChange={handleChange} className="w-full p-2 rounded-lg text-lg font-manrope text-[#494E58] bg-input focus:outline-none">
-            <option value="student">Student</option>
-            <option value="alumni">Alumni</option>
+            <option value="Student">Student</option>
+            <option value="Alumni">Alumni</option>
           </select>
           <button
             className="bg-primary duration-300 hover:bg-purple-600 text-white font-manrope text-xl py-2 px-4 rounded-full w-full"

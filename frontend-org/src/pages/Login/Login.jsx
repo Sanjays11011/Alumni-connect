@@ -12,7 +12,7 @@ const Login = () => {
   
 
   const handleLogin = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+    e.preventDefault(); 
     try {
       const response = await axios.post("http://localhost:3001/api/auth",data);
       localStorage.setItem("token", response.data.token);
@@ -60,7 +60,7 @@ const Login = () => {
           </div>
           <button
             type="submit"
-            className="bg-primary duration-300 hover:bg-purple-600 text-white font-manrope text-xl py-2 px-4 rounded-full w-full"
+            className="bg-primary duration-300 hover:bg-blue-500 text-white font-manrope text-xl py-2 px-4 rounded-full w-full"
           >
             Login
           </button>

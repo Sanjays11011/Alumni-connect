@@ -1,35 +1,57 @@
-const router = require('express').Router();
-const { User }= require('../models/user');
+// authRoutes.js
+const express = require('express');
+const router = express.Router();
 const bcrypt = require('bcrypt');
-const joi = require('joi');
-router.post("/",async(req,res)=>{
-    try {
-        const {error} = validate(req.body);
-        if(error){
-            return res.status(400).send({message:error.details[0].message});
-        }
-        const user = await User.findOne({email:req.body.email});
-        if(!user){
-            return res.status(401).send({message:"Invalid email or password"});
-        }
-        const validPassword = await bcrypt.compare(req.body.password,user.password);
-        if(!validPassword){
-            return res.status(401).send({message:"Invalid email or password"});
-        }
-        const token = user.generateAuthToken();
-        res.status(200).send({data:token, message: "logged in successfully"});
-        }
-    catch(error){
-        res.status(500).send({message:error.message || "Some error occurred"});
-    }
-})
+const jwt = require('jsonwebtoken');
+const User = require('../models/userModel');
 
-const validate = (data) => {
-    const schema = joi.object({ 
-        email: joi.string().email().required().label("Email"),
-        password: joi.string().required().label("Password"),
+// Signup route
+router.post('/signup', async (req, res) => {
+  const { firstname, lastname, email, password, role } = req.body;
+
+  try {
+    const userExists = await User.findOne({ email });
+    if (userExists) {
+      return res.status(400).send({ message: 'User already exists' });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = new User({
+      firstname,
+      lastname,
+      email,
+      password: hashedPassword,
+      role
     });
-    return schema.validate(data);
-}
+
+    await user.save();
+    const token = user.generateAuthToken();
+    res.status(201).send({ token, user });
+  } catch (error) {
+    res.status(500).send({ message: 'Server error' });
+  }
+});
+
+// Login route
+router.post('/', async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).send({ message: 'Invalid email or password' });
+    }
+
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword) {
+      return res.status(400).send({ message: 'Invalid email or password' });
+    }
+
+    const token = user.generateAuthToken();
+    res.send({ token, user });
+  } catch (error) {
+    res.status(500).send({ message: 'Server error' });
+  }
+});
 
 module.exports = router;

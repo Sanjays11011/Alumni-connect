@@ -1,15 +1,17 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import Layout from './pages/Layout';
-import SignUp from './pages/SignUp';
-import Login from './pages/Login';
-import Profile from './pages/Profile';
-import Donation from './pages/Donation';
-import Home from './pages/Home';
-import Discussion from './pages/Discussion';
-import Message from './pages/Message';
+import Layout from './pages/Layout/Layout';
+import SignUp from './pages/SignUp/SignUp';
+import Login from './pages/Login/Login';
+import Profile from './pages/Profile/Profile';
+import Donation from './pages/Donation/Donation';
+import Home from './pages/Home/Home';
+import Discussion from './pages/Discussion/Discussion';
+import Message from './pages/Message/Message';
+import JobDetail from './pages/Home/JobDetail';
 import './index.css'; 
 import './App.css';
-import Feedback from './pages/Feedback';
+import Feedback from './pages/Feedback/Feedback';
+import EventDetails from './pages/Home/EventDetails';
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
         <Route path='/donation' element={<Donation />} />
         <Route path='/discussion' element={<Discussion />} />
         <Route path='/message' element={<Message />} />
+        <Route path="/job/:id" element={<JobDetail />} />
+        <Route path='/events/:id' element={<EventDetails />} />
       </Routes>
     </div>
   );
