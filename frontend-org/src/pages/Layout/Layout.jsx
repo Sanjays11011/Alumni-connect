@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Icon } from "@iconify/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Layout = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const navigate = useNavigate(); // Use for navigation after clicking a result
 
   const navbar = [
     { icon: "material-symbols-light:home", path: "/home" },
@@ -29,15 +30,22 @@ const Layout = () => {
       const data = await response.json();
       setSearchResults(data);
     } catch (error) {
-      console.error('Error fetching search results:', error);
+      console.error("Error fetching search results:", error);
     }
+  };
+
+  // Handle click on a specific search result
+  const handleResultClick = (userId) => {
+    setSearchResults([]); // Clear the search results list
+    setSearchQuery('');    // Optionally clear the search input
+    navigate(`/user/${userId}`); // Redirect to the user details page
   };
 
   return (
     <div className="fixed top-0 left-0 w-full h-16 flex border-2 shadow-lg bg-primary z-50">
       <div className="h-full w-full flex justify-around items-center">
         <h1 className="pl-10 text-2xl opacity-60 font-manrope text-white">Heritage Hub</h1>
-        
+
         {/* Search input */}
         <form onSubmit={handleSearchSubmit} className="ml-10">
           <input
@@ -47,7 +55,9 @@ const Layout = () => {
             value={searchQuery}
             onChange={handleSearchChange}
           />
-          <button type="submit" className="ml-2 p-2 bg-blue-500 text-white rounded-lg">Search</button>
+          <button type="submit" className="ml-2 p-2 bg-blue-500 text-white rounded-lg">
+            Search
+          </button>
         </form>
 
         <div className="w-1/4 h-full flex items-center justify-around">
@@ -70,7 +80,11 @@ const Layout = () => {
           <h2 className="text-lg font-bold">Search Results</h2>
           <ul>
             {searchResults.map((user, index) => (
-              <li key={index} className="py-1">
+              <li
+                key={index}
+                className="py-1 cursor-pointer hover:bg-gray-200"
+                onClick={() => handleResultClick(user._id)} // Call function to navigate to user details page
+              >
                 {user.firstname} {user.lastname} - {user.email}
               </li>
             ))}
