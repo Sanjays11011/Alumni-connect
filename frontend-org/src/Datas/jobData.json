@@ -2,9 +2,8 @@
   "jobs": [
     {
       "id": 1,
-      
       "name": "Undergraduate required for Voice Process at Tech Mahindra",
-      "alumni-name":"Sanjay",
+      "alumniName": "Sanjay",
       "company": "Tech Mahindra",
       "timing": "Full Time",
       "location": "Bangalore",
@@ -15,12 +14,13 @@
         "Customer Queries",
         "Query Resolution"
       ],
-      "posted": "5 Days ago"
+      "posted": "5 Days ago",
+      "description": "As a Customer Support Executive, you will handle inbound calls and assist customers with their queries and concerns. Your role will involve resolving customer issues efficiently while maintaining a high level of professionalism. You will be expected to follow predefined processes and ensure customer satisfaction. Excellent communication skills and problem-solving abilities are essential for this position."
     },
     {
       "id": 2,
       "name": "Software Engineer at Infosys",
-      "alumni-name":"Ragavan",
+      "alumniName": "Ragavan",
       "company": "Infosys",
       "timing": "Full Time",
       "location": "Hyderabad",
@@ -31,12 +31,13 @@
         "Microservices",
         "Cloud Computing"
       ],
-      "posted": "3 Days ago"
+      "posted": "3 Days ago",
+      "description": "In this role, you will be responsible for developing and maintaining software applications using Java and Spring Boot. You will work on designing and implementing microservices architectures and integrating cloud computing solutions. Your duties will also include debugging and optimizing code, and collaborating with other team members to deliver high-quality software. Experience with Agile methodologies and good problem-solving skills will be crucial for success in this position."
     },
     {
       "id": 3,
       "name": "Front-End Developer at TCS",
-      "alumni-name":"Pavithra",
+      "alumniName": "Pavithra",
       "company": "Tata Consultancy Services",
       "timing": "Full Time",
       "location": "Mumbai",
@@ -48,12 +49,13 @@
         "JavaScript",
         "REST APIs"
       ],
-      "posted": "7 Days ago"
+      "posted": "7 Days ago",
+      "description": "As a Front-End Developer, you will be responsible for designing and implementing interactive user interfaces using React.js. You will work closely with UX/UI designers to translate wireframes into responsive and dynamic web applications. Key tasks will include writing clean and efficient code in HTML, CSS, and JavaScript, and integrating with backend REST APIs. A strong understanding of web standards and cross-browser compatibility is required, along with the ability to troubleshoot and optimize performance."
     },
     {
       "id": 4,
       "name": "Data Analyst at Accenture",
-      "alumni-name":"Shine Sweety",
+      "alumniName": "Shine Sweety",
       "company": "Accenture",
       "timing": "Full Time",
       "location": "Pune",
@@ -65,12 +67,13 @@
         "Python",
         "Data Mining"
       ],
-      "posted": "2 Days ago"
+      "posted": "2 Days ago",
+      "description": "In the Data Analyst role, you will analyze large datasets to identify trends and insights using SQL and Python. You will be responsible for creating data visualizations and reports that effectively communicate your findings to stakeholders. Your work will involve data mining, statistical analysis, and ensuring data accuracy. You will also collaborate with cross-functional teams to support data-driven decision-making and provide actionable recommendations based on your analyses."
     },
     {
       "id": 5,
       "name": "Product Manager at Amazon",
-      "alumni-name":"SabariAdhith",
+      "alumniName": "SabariAdhith",
       "company": "Amazon",
       "timing": "Full Time",
       "location": "Bangalore",
@@ -82,12 +85,13 @@
         "Market Analysis",
         "Leadership"
       ],
-      "posted": "1 Day ago"
+      "posted": "1 Day ago",
+      "description": "As a Product Manager, you will lead the development and launch of new products, coordinating cross-functional teams to deliver projects on time and within scope. You will utilize Agile methodologies to manage the product lifecycle, from ideation to deployment. Your role will involve conducting market analysis to identify opportunities and define product requirements. Strong leadership and communication skills are essential as you will be working closely with stakeholders and team members to align on product goals and strategy."
     },
     {
       "id": 6,
       "name": "Backend Developer at Google",
-      "alumni-name":"Vijayraj",
+      "alumniName": "Vijayraj",
       "company": "Google",
       "timing": "Full Time",
       "location": "Gurgaon",
@@ -99,12 +103,13 @@
         "Microservices",
         "Cloud Platforms"
       ],
-      "posted": "4 Days ago"
+      "posted": "4 Days ago",
+      "description": "In this Backend Developer role, you will design and implement backend systems using Node.js and MongoDB. You will be involved in developing robust APIs and working with microservices architecture to support scalable applications. Your responsibilities will also include optimizing performance and ensuring the reliability of services. Experience with cloud platforms and knowledge of best practices in backend development will be important for effectively contributing to the team and delivering high-quality solutions."
     },
     {
       "id": 7,
       "name": "UI/UX Designer at Flipkart",
-      "alumni-name":"Udhaya Dhanush",
+      "alumniName": "Udhaya Dhanush",
       "company": "Flipkart",
       "timing": "Full Time",
       "location": "Bangalore",
@@ -116,12 +121,13 @@
         "Wireframing",
         "Prototyping"
       ],
-      "posted": "6 Days ago"
+      "posted": "6 Days ago",
+      "description": "As a UI/UX Designer, you will create and design user interfaces that are both aesthetically pleasing and highly functional. You will use tools like Figma and Adobe XD to develop wireframes, prototypes, and visual designs. Your role will involve understanding user needs and behavior to craft intuitive and engaging user experiences. You will collaborate with developers to ensure designs are implemented accurately and effectively, and iterate on designs based on user feedback and testing."
     },
     {
       "id": 8,
       "name": "DevOps Engineer at IBM",
-      "alumni-name":"Vishal ",
+      "alumniName": "Vishal",
       "company": "IBM",
       "timing": "Full Time",
       "location": "Chennai",
@@ -133,7 +139,8 @@
         "AWS",
         "Automation Tools"
       ],
-      "posted": "2 Weeks ago"
+      "posted": "2 Weeks ago",
+      "description": "In the role of a DevOps Engineer, you will be responsible for managing and optimizing CI/CD pipelines to streamline software development and deployment processes. You will use Docker for containerization and Kubernetes for orchestration, ensuring that applications are scalable and reliable. Your responsibilities will also include working with AWS to leverage cloud infrastructure and utilizing automation tools to enhance efficiency. You will collaborate with development and operations teams to improve workflows and resolve issues."
     }
   ]
 }
