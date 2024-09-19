@@ -56,9 +56,6 @@ const Layout = () => {
             value={searchQuery}
             onChange={handleSearchChange}
           />
-          <button type="submit" className="ml-2 p-2 bg-blue-500 text-white rounded-lg">
-            Search
-          </button>
         </form>
         <button type="submit" className="ml-2 p-2 bg-blue-500 text-white rounded-lg">Search</button>
         </div>
