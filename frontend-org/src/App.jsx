@@ -26,9 +26,7 @@ function App() {
         <Route path='/donation' element={<Donation />} />
         <Route path='/discussion' element={<Discussion />} />
         <Route path='/message' element={<Message />} />
-
         <Route path="/user/:userId" element={<UserDetails />} />
-
         <Route path="/job/:id" element={<JobDetail />} />
         <Route path='/events/:id' element={<EventDetails />} />
 
