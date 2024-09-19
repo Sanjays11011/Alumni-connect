@@ -86,7 +86,7 @@ const Profile = () => {
           {/* Profile Section */}
           <div className="w-1/3 p-4 flex flex-col items-center">
             <div className="relative">
-              <div className="rounded-full w-48 h-48 bg-gray-300 mb-4"></div>
+              <Icon icon="iconoir:profile-circle" className="rounded-full w-48 h-48 bg-white text-gray-300 mb-4"></Icon>
               <button
                 className="absolute bottom-0 right-0 bg-blue-500 text-white rounded-full p-2"
                 onClick={handleEdit}

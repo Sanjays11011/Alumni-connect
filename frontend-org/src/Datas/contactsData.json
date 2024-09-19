@@ -1,0 +1,50 @@
+{
+    "contacts": [
+      {
+        "id": 1,
+        "name": "Alice Johnson",
+        "avatar": "https://i.pravatar.cc/150?img=1",
+        "messages": [
+          { "id": 1, "text": "Hi, how are you?", "sender": "me" },
+          { "id": 2, "text": "I'm doing great! How about you?", "sender": "Alice" }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Bob Smith",
+        "avatar": "https://i.pravatar.cc/150?img=2",
+        "messages": [
+          { "id": 1, "text": "Hey! What’s up?", "sender": "me" },
+          { "id": 2, "text": "Not much, just working. You?", "sender": "Bob" }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "Carol Williams",
+        "avatar": "https://i.pravatar.cc/150?img=3",
+        "messages": [
+          { "id": 1, "text": "Good morning!", "sender": "Carol" },
+          { "id": 2, "text": "Morning! How’s your day going?", "sender": "me" }
+        ]
+      },
+      {
+        "id": 4,
+        "name": "David Brown",
+        "avatar": "https://i.pravatar.cc/150?img=4",
+        "messages": [
+          { "id": 1, "text": "Hello there!", "sender": "David" },
+          { "id": 2, "text": "Hi! What can I do for you?", "sender": "me" }
+        ]
+      },
+      {
+        "id": 5,
+        "name": "Eva Green",
+        "avatar": "https://i.pravatar.cc/150?img=5",
+        "messages": [
+          { "id": 1, "text": "Hey, long time no see!", "sender": "Eva" },
+          { "id": 2, "text": "Yes! Let’s catch up soon.", "sender": "me" }
+        ]
+      }
+    ]
+  }
+  

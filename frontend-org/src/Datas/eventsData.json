@@ -1,35 +1,39 @@
 {
-    "events": [
-      {
-        "title": "National Conference",
-        "topic": "Technological Innovations in Life Science towards Sustainability",
-        "date": "17th April, 2024",
-        "image": "public/images/event-2.jpg"
-      },
-      {
-        "title": "AI Symposium",
-        "topic": "The Future of Artificial Intelligence in Healthcare",
-        "date": "22nd May, 2024",
-        "image": "public/images/event-ai.jpg"
-      },
-      {
-        "title": "Robotics Workshop",
-        "topic": "Building Autonomous Robots for Smart Cities",
-        "date": "10th June, 2024",
-        "image": "public/images/event-robotics.jpeg"
-      },
-      {
-        "title": "Blockchain Summit",
-        "topic": "Leveraging Blockchain for Secure Digital Transactions",
-        "date": "1st July, 2024",
-        "image": "public/images/event-blockchain.jpeg"
-      },
-      {
-        "title": "Cybersecurity Forum",
-        "topic": "Protecting Data in an Increasingly Connected World",
-        "date": "15th August, 2024",
-        "image": "public/images/event-cybersecurity.jpeg"
-      }
-    ]
-  }
-  
+  "events": [
+    {
+      "id": 1,
+      "title": "National Conference",
+      "topic": "Technological Innovations in Life Science towards Sustainability",
+      "date": "17th April, 2024",
+      "image": "public/images/event-2.jpg"
+    },
+    {
+      "id": 2,
+      "title": "AI Symposium",
+      "topic": "The Future of Artificial Intelligence in Healthcare",
+      "date": "22nd May, 2024",
+      "image": "public/images/event-ai.jpg"
+    },
+    {
+      "id": 3,
+      "title": "Robotics Workshop",
+      "topic": "Building Autonomous Robots for Smart Cities",
+      "date": "10th June, 2024",
+      "image": "public/images/event-robotics.jpeg"
+    },
+    {
+      "id": 4,
+      "title": "Blockchain Summit",
+      "topic": "Leveraging Blockchain for Secure Digital Transactions",
+      "date": "1st July, 2024",
+      "image": "public/images/event-blockchain.jpeg"
+    },
+    {
+      "id": 5,
+      "title": "Cybersecurity Forum",
+      "topic": "Protecting Data in an Increasingly Connected World",
+      "date": "15th August, 2024",
+      "image": "public/images/event-cybersecurity.jpeg"
+    }
+  ]
+}
