@@ -3,9 +3,11 @@ import { Icon } from "@iconify/react";
 import jobData from "../../Datas/jobData.json";
 import eventsData from "../../Datas/eventsData.json";
 import AddJobs from "./AddJobs";
+import AddEvents from "./AddEvents";
 
 const Home = () => {
   const [isOpen,setIsOpen] = useState(false);
+  const [isEventsOpen,setIsEventsOpen] = useState(false);
   const OpenModel = () => {
     setIsOpen(true);
   }
@@ -77,7 +79,11 @@ const Home = () => {
 
       {/*Events Section */}
       <div className="w-2/5 p-3 h-svh overflow-y-auto custom-scrollbar">
-      <h1 className="text-3xl font-manrope mb-7">Events</h1>
+      <div className="flex gap-3">
+        <h1 className="text-3xl font-manrope ">Events </h1>
+        <button className=" bg-primary duration-200 hover:bg-blue-500  text-white rounded-xl px-4 py-2 mb-7" onClick={() => setIsEventsOpen(true)}>Add Events</button>
+        {isEventsOpen && <AddEvents onClose={() => setIsEventsOpen(false)} />}
+      </div>
       {eventsData.events.map((event, index) => (
         <div
           key={index}

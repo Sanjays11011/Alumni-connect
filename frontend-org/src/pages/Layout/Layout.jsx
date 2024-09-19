@@ -39,16 +39,18 @@ const Layout = () => {
         <h1 className="pl-10 text-2xl opacity-60 font-manrope text-white">Heritage Hub</h1>
         
         {/* Search input */}
+        <div className="flex">
         <form onSubmit={handleSearchSubmit} className="ml-10">
           <input
             type="text"
-            className="p-2 w-1/5 bg-input text-black font-manrope focus:outline-none rounded-lg"
+            className="p-2 w-full bg-input text-black font-manrope focus:outline-none rounded-lg"
             placeholder="Search by name"
             value={searchQuery}
             onChange={handleSearchChange}
           />
-          <button type="submit" className="ml-2 p-2 bg-blue-500 text-white rounded-lg">Search</button>
         </form>
+        <button type="submit" className="ml-2 p-2 bg-blue-500 text-white rounded-lg">Search</button>
+        </div>
 
         <div className="w-1/4 h-full flex items-center justify-around">
           {navbar.map((item, index) => (
