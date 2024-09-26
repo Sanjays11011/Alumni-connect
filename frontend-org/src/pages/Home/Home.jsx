@@ -10,11 +10,13 @@ const Home = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isEventsOpen, setIsEventsOpen] = useState(false);
   const [jobs, setJobs] = useState([]);
+  const [events,setEvents] = useState([]);
   const [userRole, setUserRole] = useState("");
 
   useEffect(() => {
     fetchJobs();
     fetchUserRole();
+    fetchEvents();
   }, []);
 
   const fetchJobs = async () => {
@@ -24,6 +26,16 @@ const Home = () => {
       setJobs(response.data.jobs || []); // Set jobs array
     } catch (error) {
       console.error("Error fetching jobs:", error);
+    }
+  };
+
+  const fetchEvents = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/api/events");
+      console.log(response.data); // Check the structure of the data
+      setEvents(response.data.events || []); // Set events array
+    } catch (error) {
+      console.error("Error fetching events:", error);
     }
   };
 
@@ -108,17 +120,16 @@ const Home = () => {
               Add Events
             </button>
           )}
-          {isEventsOpen && <AddEvents onClose={() => setIsEventsOpen(false)} />}
+          {isEventsOpen && <AddEvents onClose={() => setIsEventsOpen(false)} refreshEvents={fetchEvents} />}
         </div>
         {/* Map Events data here */}
-        {eventsData.events.map((event, index) => (
-        <Link to={`/events/${event.id}`} key={event.id}>
+        {events.map((event) => (
+        <Link to={`/events/${event._id}`} key={event._id}>
           <div
-            key={index}
             className="w-full h-1/4 cursor-pointer border-2 duration-300 hover:border-primary rounded-lg mb-2 items-center flex"
           >
             <img
-              src={event.image}
+              src={`http://localhost:3001/api/events/${event._id}/image`}
               className="h-full w-1/4 p-3 rounded-lg"
               alt={event.title}
             />
