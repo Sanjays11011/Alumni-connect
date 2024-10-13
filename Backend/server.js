@@ -5,6 +5,8 @@ const cors = require('cors');
 const authRoutes = require('./routes/auth');
 const profileRoutes = require('./routes/profile');
 const User = require('./models/userModel'); // Import the user model
+const jobRoutes = require('./routes/job');
+const eventRoutes = require('./routes/event');
 
 dotenv.config();
 
@@ -29,6 +31,8 @@ mongoose.connect(process.env.MONGODB_URI, {
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api', profileRoutes);
+app.use('/api', jobRoutes);
+app.use('/api', eventRoutes);
 
 // Search Route
 app.get('/api/search', async (req, res) => {
