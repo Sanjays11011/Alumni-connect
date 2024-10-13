@@ -8,18 +8,18 @@ const Donation = () => {
       <p className="m-4 text-xl">{donationData.intro}</p>
 
       {donationData.projects.map((project, projectIndex) => (
-        <div key={projectIndex} className=" border border-black mb-4 rounded-md">
-          <h2 className="m-4 mt-5 text-2xl font-semibold">{project.projectTitle}</h2>
+        <div key={projectIndex} className="relative border border-black mb-4 rounded-md p-4">
+          <h2 className="mt-5 text-2xl font-semibold">{project.projectTitle}</h2>
           
           {project.sections.map((section, sectionIndex) => (
             <div key={sectionIndex}>
-              <h3 className="m-4 mt-5 text-2xl font-semibold">{section.heading}</h3>
-              <p className="m-4 text-xl">{section.content}</p>
+              <h3 className="mt-5 text-2xl font-semibold">{section.heading}</h3>
+              <p className="text-xl">{section.content}</p>
             </div>
           ))}
 
-          <h3 className="m-4 mt-5 text-xl font-semibold">Requirements</h3>
-          <ol className="m-4 text-xl">
+          <h3 className="mt-5 text-xl font-semibold">Requirements</h3>
+          <ol className="text-xl list-disc list-inside">
             {project.requirements.map((requirement, reqIndex) => (
               <li key={reqIndex}>
                 {requirement.item}
@@ -28,14 +28,20 @@ const Donation = () => {
             ))}
           </ol>
 
-          <h3 className="font-bold text-xl ml-4 mb-9">Total Cost: &#8377;{project.totalCost}</h3>
-          <p className="text-xl ml-4 mb-4">
+          <h3 className="font-bold text-xl mb-9">Total Cost: &#8377;{project.totalCost}</h3>
+          <p className="text-xl mb-4">
             For financial contributions, you can make a donation directly via {project.paymentInfo.method}.
             <p>Google Pay Number: <b>{project.paymentInfo.number}</b></p>
-            Thank you for considering supporting this exciting project. Together, we can make a significant impact on {project.projectTitle}.
-            <br />
+
             {project.contactInfo}<b>{project.contactEmail}</b>
           </p>
+
+          {/* QR Code positioned at the top right corner */}
+          <img 
+            src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" 
+            alt="QR Code for payment" 
+            className="relative bottom-4 right-4 w-25 h-25" 
+          />
         </div>
       ))}
     </div>

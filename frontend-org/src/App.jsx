@@ -7,6 +7,7 @@ import Donation from './pages/Donation/Donation';
 import Home from './pages/Home/Home';
 import Discussion from './pages/Discussion/Discussion';
 import Message from './pages/Message/Message';
+import UserDetails from './pages/UserDetails/UserDetails';
 import JobDetail from './pages/Home/JobDetail';
 import './index.css'; 
 import './App.css';
@@ -25,8 +26,10 @@ function App() {
         <Route path='/donation' element={<Donation />} />
         <Route path='/discussion' element={<Discussion />} />
         <Route path='/message' element={<Message />} />
+        <Route path="/user/:userId" element={<UserDetails />} />
         <Route path="/job/:id" element={<JobDetail />} />
         <Route path='/events/:id' element={<EventDetails />} />
+
       </Routes>
     </div>
   );

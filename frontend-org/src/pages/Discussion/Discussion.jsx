@@ -1,5 +1,6 @@
 import { useState } from "react";
 import discussionData from "../../Datas/discussionData.json";
+import '../../App.css'
 
 const Discussion = () => {
   const [selectedQuery, setSelectedQuery] = useState(null);
@@ -26,14 +27,14 @@ const Discussion = () => {
   return (
     <div className="pt-16 w-[98vw] h-svh flex flex-row font-manrope">
       {/* Queries Section */}
-      <div className="w-1/3 h-full border custom-scrollbar">
+      <div className="w-1/3 h-full border  overflow-y-auto custom-scrollbar">
         <p className="m-3 text-xl border-b">Queries</p>
         {discussionData.map((item) => (
           <div
             key={item.id}
             onClick={() => handleClick(item.id)}
             className={`w-full h-1/4 flex flex-col justify-center border-b-2 cursor-pointer p-4 ${
-              selectedQuery === item.id ? 'bg-secondary text-black' : 'bg-white text-gray-800'
+              selectedQuery === item.id ? 'bg-[#B4B4B8] text-white' : 'bg-white text-gray-800'
             }`}
           >
             <h1 className="p-2 text-xl font-bold duration-300">{item.query}</h1>
@@ -46,9 +47,9 @@ const Discussion = () => {
       </div>
 
       {/* Replies Section */}
-      <div className="w-2/3 h-full border custom-scrollbar flex flex-col">
+      <div className="w-2/3 h-full border flex flex-col">
         <h1 className="m-3 text-xl border-b flex-none">Replies</h1>
-        <div className="w-full flex-1 flex flex-col items-center overflow-y-auto">
+        <div className="w-full flex-1 flex flex-col items-center custom-scrollbar overflow-y-auto">
           {selectedQuery !== null &&
             discussionData
               .find((item) => item.id === selectedQuery)

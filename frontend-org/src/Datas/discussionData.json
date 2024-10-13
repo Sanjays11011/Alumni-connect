@@ -1,34 +1,142 @@
 [
-    {
-      "id": 1,
-      "query": "What were the key skills that helped you succeed in your career after graduation?",
-      "author": "Sanjay",
-      "date": "2 days ago",
-      "replies": [
-        {
-          "author": "Ragavan",
-          "date": "8th September, 2024",
-          "reply": "One of the most important skills I developed was problem-solving. In engineering, technical knowledge is important, but the ability to analyze problems and come up with efficient solutions set me apart. Additionally, learning how to communicate my ideas effectively in meetings and technical discussions played a significant role in my career success."
-        },
-        {
-          "author": "Anjali",
-          "date": "9th September, 2024",
-          "reply": "Adaptability was a key skill for me. I was always eager to learn new tools and technologies, which helped me stay relevant in my field."
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "query": "How did you transition from college life to a professional career?",
-      "author": "Pavithra",
-      "date": "5 days ago",
-      "replies": [
-        {
-          "author": "Shine Sweety",
-          "date": "7th September, 2024",
-          "reply": "The transition was challenging but having an internship before graduation helped ease it. I learned how to apply theoretical knowledge in real-world scenarios."
-        }
-      ]
-    }
-  ]
-  
+  {
+    "id": 1,
+    "query": "What were the key skills that helped you succeed in your career after graduation?",
+    "author": "Sanjay",
+    "date": "2 days ago",
+    "replies": [
+      {
+        "author": "Ragavan",
+        "date": "8th September, 2024",
+        "reply": "One of the most important skills I developed was problem-solving. In engineering, technical knowledge is important, but the ability to analyze problems and come up with efficient solutions set me apart. Additionally, learning how to communicate my ideas effectively in meetings and technical discussions played a significant role in my career success."
+      },
+      {
+        "author": "Anjali",
+        "date": "9th September, 2024",
+        "reply": "Adaptability was a key skill for me. I was always eager to learn new tools and technologies, which helped me stay relevant in my field."
+      },
+      {
+        "author": "Meera",
+        "date": "10th September, 2024",
+        "reply": "Networking was crucial. Building relationships with professionals in my field opened up many opportunities for career growth and mentorship."
+      },
+      {
+        "author": "Raj",
+        "date": "11th September, 2024",
+        "reply": "Time management was essential. Balancing multiple projects and meeting deadlines taught me to prioritize tasks and work efficiently."
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "query": "How did you transition from college life to a professional career?",
+    "author": "Pavithra",
+    "date": "5 days ago",
+    "replies": [
+      {
+        "author": "Shine Sweety",
+        "date": "7th September, 2024",
+        "reply": "The transition was challenging but having an internship before graduation helped ease it. I learned how to apply theoretical knowledge in real-world scenarios."
+      },
+      {
+        "author": "Nitin",
+        "date": "8th September, 2024",
+        "reply": "It was a bit overwhelming at first. I had to adjust to a more structured work environment and learn new professional etiquette."
+      },
+      {
+        "author": "Aisha",
+        "date": "9th September, 2024",
+        "reply": "Joining professional groups and forums helped me get a better understanding of the industry and made the transition smoother."
+      },
+      {
+        "author": "Karthik",
+        "date": "10th September, 2024",
+        "reply": "Mentorship was invaluable. Having someone experienced to guide me through the early stages of my career made a big difference."
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "query": "What are some common mistakes to avoid in the early stages of a career?",
+    "author": "Priya",
+    "date": "1 day ago",
+    "replies": [
+      {
+        "author": "Suresh",
+        "date": "2 days ago",
+        "reply": "One mistake I made was not asking for help when I needed it. It's important to seek guidance rather than struggle in silence."
+      },
+      {
+        "author": "Divya",
+        "date": "3 days ago",
+        "reply": "Failing to network effectively was a mistake. Building professional relationships early on can open doors and provide valuable opportunities."
+      },
+      {
+        "author": "Vikram",
+        "date": "4 days ago",
+        "reply": "Overloading myself with work to prove my worth. It's important to manage workload and avoid burnout while maintaining quality."
+      },
+      {
+        "author": "Swathi",
+        "date": "5 days ago",
+        "reply": "Not investing time in continuous learning. The industry evolves rapidly, and keeping up with new skills and knowledge is crucial."
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "query": "How do you maintain a work-life balance in a demanding job?",
+    "author": "Arjun",
+    "date": "3 days ago",
+    "replies": [
+      {
+        "author": "Nisha",
+        "date": "4 days ago",
+        "reply": "Setting clear boundaries between work and personal life has helped me a lot. I make sure to disconnect from work after hours."
+      },
+      {
+        "author": "Amit",
+        "date": "5 days ago",
+        "reply": "Scheduling regular breaks and time off is essential. I use my vacation days and make sure to take short breaks during work to recharge."
+      },
+      {
+        "author": "Riya",
+        "date": "6 days ago",
+        "reply": "Prioritizing tasks and delegating responsibilities where possible helps manage workload and reduces stress."
+      },
+      {
+        "author": "Ravi",
+        "date": "7 days ago",
+        "reply": "Engaging in hobbies and activities outside of work helps me unwind and maintain a balanced perspective."
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "query": "What strategies do you use for effective team collaboration?",
+    "author": "Neha",
+    "date": "1 day ago",
+    "replies": [
+      {
+        "author": "Anil",
+        "date": "2 days ago",
+        "reply": "Clear communication is key. Regular meetings and updates ensure everyone is on the same page and helps in addressing issues early."
+      },
+      {
+        "author": "Jaya",
+        "date": "3 days ago",
+        "reply": "Utilizing collaborative tools and platforms helps streamline workflows and keeps track of progress and tasks."
+      },
+      {
+        "author": "Sanjana",
+        "date": "4 days ago",
+        "reply": "Encouraging feedback and open discussions fosters a collaborative environment and helps in refining ideas and strategies."
+      },
+      {
+        "author": "Manoj",
+        "date": "5 days ago",
+        "reply": "Setting clear roles and responsibilities within the team helps in avoiding confusion and ensures accountability."
+      }
+    ]
+  }
+]
