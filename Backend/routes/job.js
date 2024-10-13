@@ -22,4 +22,17 @@ router.get('/jobs', async (req, res) => {
     }
   });
 
+router.get('/jobs/:id', async (req, res) => {
+  try {
+    const jobs = await Job.findById(req.params.id);
+    if (!jobs){
+      res.status(404).json({ message: 'Job not found' });
+    }
+    res.json({ jobs});
+  }
+  catch(error){
+    res.status(500).json({ message:'Error fetching jobs', error });
+  }
+});
+
 module.exports = router;

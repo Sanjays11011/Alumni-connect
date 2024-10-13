@@ -4,7 +4,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import AddJobs from "./AddJobs";
 import AddEvents from "./AddEvents";
-import eventsData from "../../Datas/eventsData.json";
+
 
 const Home = () => {
   const [isOpen, setIsOpen] = useState(false);
