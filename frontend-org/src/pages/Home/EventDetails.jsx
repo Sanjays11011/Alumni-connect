@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const EventDetails = () => {
+  const apiUrl = import.meta.env.REACT_APP_API_URL;
   const { id } = useParams();  // Get ObjectId from URL
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -11,7 +12,7 @@ const EventDetails = () => {
   useEffect(() => {
     const fetchEventDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/api/events/${id}`);
+        const response = await axios.get(`${apiUrl}/api/events/${id}`);
         console.log(response.data); // Log the entire response for debugging
         setEvent(response.data.event); // Set the fetched event data (accessing 'event' property)
         setLoading(false);

@@ -4,6 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 
 const Login = () => {
+  const apiUrl = import.meta.env.REACT_APP_API_URL;
   const [message,setMessage] = useState("");
   const [data,setData] = useState({
     email: "",
@@ -14,7 +15,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault(); 
     try {
-      const response = await axios.post("http://localhost:3001/api/auth",data);
+      const response = await axios.post(`${apiUrl}/api/auth`,data);
       localStorage.setItem("token", response.data.token);
       window.location = "/home";
     } catch (error) {

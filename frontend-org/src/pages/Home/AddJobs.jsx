@@ -4,6 +4,7 @@ import '../../App.css'
 import { Icon } from '@iconify/react'
 
 const AddJobs = ({ onClose, refreshJobs }) => {
+  const apiUrl = import.meta.env.REACT_APP_API_URL;
   const [formData, setFormData] = useState({
     jobName: "",
     requirements: [], // Changed to an array to store multiple requirements
@@ -52,7 +53,7 @@ const AddJobs = ({ onClose, refreshJobs }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:3001/api/jobs', formData); // Update with your API route
+      await axios.post(`${apiUrl}/api/jobs`, formData); // Update with your API route
       refreshJobs(); // Call the function to refresh the jobs list after adding
       onClose(); // Close the modal
     } catch (error) {

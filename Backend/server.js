@@ -15,7 +15,7 @@ app.use(express.json());
 
 // Enable CORS
 app.use(cors({
-  origin: 'http://localhost:5173', // Frontend URL
+  origin: 'https://alumni-connect-1-imn5.onrender.com', // Frontend URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true, // Allow credentials such as cookies
 }));
