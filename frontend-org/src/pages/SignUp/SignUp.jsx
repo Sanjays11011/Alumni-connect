@@ -3,6 +3,7 @@ import { Link,useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const SignUp = () => {
+  const apiUrl = import.meta.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   const [data,setData] = useState({
     firstname: "",
@@ -50,7 +51,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://127.0.0.1:3001/api/auth/signup", data);
+      const response = await axios.post(`${apiUrl}/api/auth/signup`, data);
       alert(response.data.message);
       navigate("/");
     } catch (error) {

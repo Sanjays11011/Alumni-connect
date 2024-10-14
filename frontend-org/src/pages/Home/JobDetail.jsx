@@ -4,6 +4,7 @@ import axios from 'axios';
 
 
 const JobDetails = () => {
+  const apiUrl = import.meta.env.REACT_APP_API_URL;
   const { id } = useParams();
   const [job, setJob] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -12,7 +13,7 @@ const JobDetails = () => {
   useEffect(() =>  {
     const fetchJobDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/api/jobs/${id}`);
+        const response = await axios.get(`${apiUrl}/api/jobs/${id}`);
         console.log(response.data);
         setJob(response.data.jobs);
         setLoading(false);
@@ -37,6 +38,10 @@ if(error) {
 
 if(!job) {
   return <p>Event not found</p>
+}
+
+const HandleClick = () => {
+  window.open(`https://${job.link}`, '_blank');
 }
   return (
     <div className='flex justify-center items-center h-screen'>
@@ -84,7 +89,7 @@ if(!job) {
 
           {/* Apply button */}
           <div className="mt-8">
-            <button className="bg-primary hover:bg-blue-500 duration-200 text-white px-4 py-2 rounded-lg">
+            <button onClick={HandleClick} className="bg-primary hover:bg-blue-500 duration-200 text-white px-4 py-2 rounded-lg">
               Apply Now
             </button>
           </div>

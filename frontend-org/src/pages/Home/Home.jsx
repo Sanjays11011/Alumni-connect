@@ -7,6 +7,7 @@ import AddEvents from "./AddEvents";
 
 
 const Home = () => {
+  const apiUrl = import.meta.env.REACT_APP_API_URL;
   const [isOpen, setIsOpen] = useState(false);
   const [isEventsOpen, setIsEventsOpen] = useState(false);
   const [jobs, setJobs] = useState([]);
@@ -21,7 +22,7 @@ const Home = () => {
 
   const fetchJobs = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/api/jobs");
+      const response = await axios.get(`${apiUrl}/api/jobs`);
       console.log(response.data); // Check the structure of the data
       setJobs(response.data.jobs || []); // Set jobs array
     } catch (error) {
@@ -31,7 +32,7 @@ const Home = () => {
 
   const fetchEvents = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/api/events");
+      const response = await axios.get(`${apiUrl}/api/events`);
       console.log(response.data); // Check the structure of the data
       setEvents(response.data.events || []); // Set events array
     } catch (error) {
@@ -42,7 +43,7 @@ const Home = () => {
   const fetchUserRole = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:3001/api/profile", {
+      const response = await axios.get(`${apiUrl}/api/profile`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUserRole(response.data.role);
@@ -129,7 +130,7 @@ const Home = () => {
             className="w-full h-1/4 cursor-pointer border-2 duration-300 hover:border-primary rounded-lg mb-2 items-center flex"
           >
             <img
-              src={`http://localhost:3001/api/events/${event._id}/image`}
+              src={`${apiUrl}/api/events/${event._id}/image`}
               className="h-full w-1/4 p-3 rounded-lg"
               alt={event.title}
             />

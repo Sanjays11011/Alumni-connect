@@ -3,6 +3,7 @@ import axios from "axios";
 import { Icon } from "@iconify/react";
 
 const Profile = () => {
+  const apiUrl = import.meta.env.REACT_APP_API_URL;
   const [userData, setUserData] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [details, setDetails] = useState({
@@ -21,7 +22,7 @@ const Profile = () => {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:3001/api/profile", {
+        const response = await axios.get(`${apiUrl}/api/profile`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUserData(response.data);
@@ -58,7 +59,7 @@ const Profile = () => {
 
     try {
       const token = localStorage.getItem("token");
-      await axios.put("http://localhost:3001/api/profile", details, {
+      await axios.put(`${apiUrl}/api/profile`, details, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

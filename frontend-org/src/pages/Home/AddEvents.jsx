@@ -3,6 +3,7 @@ import { Icon } from "@iconify/react";
 import axios from "axios";
 
 const AddEvents = ({ onClose, refreshEvents }) => {
+  const apiUrl = import.meta.env.REACT_APP_API_URL;
   const [formData, setFormData] = useState({
     title: "",
     topic: "",
@@ -36,7 +37,7 @@ const AddEvents = ({ onClose, refreshEvents }) => {
     formDataWithFile.append("image", imageFile); // Append image file
 
     try {
-      const response = await axios.post("http://localhost:3001/api/events", formDataWithFile, {
+      const response = await axios.post(`${apiUrl}/api/events`, formDataWithFile, {
         headers: {
           "Content-Type": "multipart/form-data", // Set the content type to multipart
         },
