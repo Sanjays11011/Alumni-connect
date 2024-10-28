@@ -24,7 +24,7 @@ router.post('/events', upload.single('image'), async (req, res) => {
       date,
       location,
       link,
-      image: { data: image.buffer, contentType: image.mimetype }
+      image: { data: imagebuffer, contentType: image.mimetype }
     });
 
     await event.save();
@@ -38,11 +38,30 @@ router.post('/events', upload.single('image'), async (req, res) => {
 router.get('/events', async (req, res) => {
   try {
     const events = await Event.find();
-    res.json({ events });
+
+    const formattedEvents = events.map(event => {
+      const imageBase64 = event.image?.img?.data
+        ? `data:${event.image.img.contentType};base64,${event.image.img.data.toString('base64')}`
+        : null; // Default to null or a placeholder if image data is missing
+
+      return {
+        _id: event._id,
+        title: event.title,
+        topic: event.topic,
+        date: event.date,
+        location: event.location,
+        link: event.link,
+        image: imageBase64
+      };
+    });
+
+    res.json({ events: formattedEvents });
   } catch (error) {
+    console.error("Error fetching events data:", error);
     res.status(500).json({ message: 'Error fetching events data', error });
   }
 });
+
 
 router.get('/events/:id', async (req, res) => {
   try {
@@ -50,26 +69,37 @@ router.get('/events/:id', async (req, res) => {
     if (!event) {
       return res.status(404).json({ message: 'Event not found' });
     }
-    res.json({ event });
+    const imageBase64 = `data:${event.image.img.contentType};base64,${event.image.img.data.toString('base64')}`;
+    res.json({ event:
+      {
+        _id: event._id,
+        title: event.title,
+        topic: event.topic,
+        date: event.date,
+        location: event.location,
+        link: event.link,
+        image: imageBase64
+      }
+     });
   } catch (error) {
     res.status(500).json({ message: 'Error fetching event data', error });
   }
 }); 
 
 // Route to serve images by event ID
-router.get('/events/:id/image', async (req, res) => {
-  try {
-    const event = await Event.findById(req.params.id);
-    if (!event || !event.image) {
-      return res.status(404).send('Image not found');
-    }
+// router.get('/events/:id/image', async (req, res) => {
+//   try {
+//     const event = await Event.findById(req.params.id);
+//     if (!event || !event.image) {
+//       return res.status(404).send('Image not found');
+//     }
 
-    res.set('Content-Type', event.image.contentType);
-    res.send(event.image.data);
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching image', error });
-  }
-});
+//     res.set('Content-Type', event.image.contentType);
+//     res.send(event.image.data);
+//   } catch (error) {
+//     res.status(500).json({ message: 'Error fetching image', error });
+//   }
+// });
 
 
 module.exports = router;

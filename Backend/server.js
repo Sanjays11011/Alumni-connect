@@ -7,6 +7,7 @@ const profileRoutes = require('./routes/profile');
 const User = require('./models/userModel'); // Import the user model
 const jobRoutes = require('./routes/job');
 const eventRoutes = require('./routes/event');
+const donationRoutes = require('./routes/donation');
 
 dotenv.config();
 
@@ -33,6 +34,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api', profileRoutes);
 app.use('/api', jobRoutes);
 app.use('/api', eventRoutes);
+app.use('/api',donationRoutes);
 
 // Search Route
 app.get('/api/search', async (req, res) => {
