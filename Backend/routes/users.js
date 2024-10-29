@@ -20,6 +20,7 @@ router.post("/",async(req,res)=>{
         console.error("Server error:", error);
         res.status(500).send({message:error.message || "Some error occurred"});
     }
-    })
+    });
+
 
     module.exports = router;
