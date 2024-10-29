@@ -4,13 +4,25 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const authRoutes = require('./routes/auth');
 const profileRoutes = require('./routes/profile');
-const User = require('./models/userModel'); // Import the user model
 const jobRoutes = require('./routes/job');
 const eventRoutes = require('./routes/event');
+const donationRoutes = require('./routes/donation');
+const messageRoutes = require('./routes/message'); // Add this line
+const contactRoutes = require('./routes/contact');
+const http = require('http'); // Import http to create a server
+const { Server } = require('socket.io'); // Import socket.io
 
 dotenv.config();
 
 const app = express();
+const server = http.createServer(app); // Create an HTTP server
+const io = new Server(server, 
+  {cors: {
+  origin: 'http://localhost:5173', // Allow requests from this origin
+  methods: ['GET', 'POST'],        // Allow specific methods
+  credentials: true                // Enable credentials if necessary
+}}); // Create a new instance of Socket.IO with the HTTP server
+
 app.use(express.json());
 
 // Enable CORS
@@ -33,13 +45,15 @@ app.use('/api/auth', authRoutes);
 app.use('/api', profileRoutes);
 app.use('/api', jobRoutes);
 app.use('/api', eventRoutes);
+app.use('/api', donationRoutes);
+app.use('/api', messageRoutes); // Add this line
+app.use('/api',contactRoutes);
 
 // Search Route
 app.get('/api/search', async (req, res) => {
   const searchQuery = req.query.name;
-  
+
   try {
-    // Search for users by first name, last name, company name, or domain (case-insensitive)
     const users = await User.find({
       $or: [
         { firstname: { $regex: searchQuery, $options: 'i' } },
@@ -73,8 +87,26 @@ app.get('/api/user/:id', async (req, res) => {
   }
 });
 
+
+
+// Socket.IO connection
+io.on('connection', (socket) => {
+  console.log('A user connected:', socket.id);
+
+  // Handle chat message event
+  socket.on('chat message', (msg) => {
+    console.log('Message received:', msg);
+    io.emit('chat message', msg); // Broadcast the message to all connected clients
+  });
+
+  // Handle disconnection
+  socket.on('disconnect', () => {
+    console.log('User disconnected:', socket.id);
+  });
+});
+
 // Start the server
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
