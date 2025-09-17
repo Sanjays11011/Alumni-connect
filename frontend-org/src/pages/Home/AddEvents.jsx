@@ -11,41 +11,21 @@ const AddEvents = ({ onClose, refreshEvents }) => {
     link: "",
   });
 
-  const [imageFile, setImageFile] = useState(null); // State for file input
-
   // Handle text input changes
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle file input change
-  const handleFileChange = (e) => {
-    setImageFile(e.target.files[0]); // Store the selected file
-  };
-
   // Submit the form data to the backend
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const formDataWithFile = new FormData();
-    formDataWithFile.append("title", formData.title);
-    formDataWithFile.append("topic", formData.topic);
-    formDataWithFile.append("date", formData.date);
-    formDataWithFile.append("location", formData.location);
-    formDataWithFile.append("link", formData.link);
-    formDataWithFile.append("image", imageFile); // Append image file
-
+    console.log(formData);
     try {
-      const response = await axios.post("http://localhost:3001/api/events", formDataWithFile, {
-        headers: {
-          "Content-Type": "multipart/form-data", // Set the content type to multipart
-        },
-      });
-      console.log(response.data.message); // Log success message from backend
-      refreshEvents();
+      await axios.post("http://localhost:3001/api/events", formData);
+      refreshEvents(); // Refresh events list
       onClose(); // Close the modal on successful submission
     } catch (error) {
-      console.error("Error adding event", error.response?.data?.message);
+      console.error("Error adding event", error);
     }
   };
 
@@ -65,7 +45,7 @@ const AddEvents = ({ onClose, refreshEvents }) => {
           <Icon icon="iconamoon:close-bold" width="2rem" height="2rem" />
         </button>
         <p className="m-3 text-xl border-b">Add Events</p>
-        <form className="grid grid-cols-2" onSubmit={handleSubmit} encType="multipart/form-data">
+        <form className="grid grid-cols-2" onSubmit={handleSubmit}>
           {inputFields.map((input) => (
             <div className="flex flex-col m-3 gap-4 w-3/4" key={input.name}>
               <label htmlFor={input.name}>{input.label}</label>
@@ -80,19 +60,6 @@ const AddEvents = ({ onClose, refreshEvents }) => {
               />
             </div>
           ))}
-
-          {/* Event Poster Field */}
-          <div className="flex flex-col m-3 gap-4 w-3/4">
-            <label htmlFor="image">Event Poster</label>
-            <input
-              type="file"
-              name="image"
-              id="image"
-              className="input-style"
-              accept="image/*"
-              onChange={handleFileChange} // Handle file selection
-            />
-          </div>
 
           <button
             type="submit"

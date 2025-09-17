@@ -1,49 +1,58 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { io } from "socket.io-client";
 import axios from "axios";
 
 const socket = io("http://localhost:3001");
 
+// Helper function to generate a consistent room ID
+const getRoomId = (userId1, userId2) => {
+  return [userId1, userId2].sort().join("-");
+};
+
 const Message = () => {
-  const { id } = useParams();
   const [currentUserId, setCurrentUserId] = useState(null);
   const [contacts, setContacts] = useState([]);
   const [selectedContact, setSelectedContact] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
 
+  // Get the current user ID on initial component load
   useEffect(() => {
-    const token = localStorage.getItem("token"); // Retrieve token from localStorage or sessionStorage
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.error("No token found. User not authenticated.");
+      return;
+    }
 
-    // Use axios to fetch only the user ID from the backend
     axios
       .get("http://localhost:3001/api/profile/id", {
         headers: {
-          Authorization: `Bearer ${token}`, // Include token in the Authorization header
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
-        console.log("User ID:", response.data.userId); // Log the user ID to the console
-        setCurrentUserId(response.data.userId); // Set the user ID in state
+        setCurrentUserId(response.data.userId);
       })
       .catch((error) => {
         console.error(
-          "Error:",
+          "Error fetching user ID:",
           error.response ? error.response.data.message : error.message
         );
       });
   }, []);
 
+  // Fetch contacts for the current user
   useEffect(() => {
     const fetchContacts = async () => {
+      if (!currentUserId) return;
       try {
         const response = await axios.get(
           `http://localhost:3001/api/contacts/${currentUserId}`
         );
-        setContacts(response.data || []);
-        if (response.data && response.data.length > 0) {
-          setSelectedContact(response.data[0]);
+        const fetchedContacts = response.data || [];
+        setContacts(fetchedContacts);
+        if (fetchedContacts.length > 0) {
+          setSelectedContact(fetchedContacts[0]);
         }
       } catch (error) {
         console.error("Error fetching contacts:", error);
@@ -52,8 +61,13 @@ const Message = () => {
     fetchContacts();
   }, [currentUserId]);
 
+  // Fetch messages and join the chat room for the selected contact
   useEffect(() => {
-    if (selectedContact) {
+    if (selectedContact && currentUserId) {
+      // Join a specific room based on the two user IDs
+      const roomId = getRoomId(currentUserId, selectedContact._id);
+      socket.emit("join chat room", roomId);
+
       const fetchMessages = async () => {
         try {
           const response = await axios.get(
@@ -68,30 +82,43 @@ const Message = () => {
     }
   }, [currentUserId, selectedContact]);
 
+  // Listen for incoming messages only in the current room
   useEffect(() => {
-    socket.on("chat message", (message) => {
-      setMessages((prevMessages) => [...prevMessages, message]);
-    });
+    const handleNewMessage = (message) => {
+      // Only add messages that are relevant to the current conversation
+      if (
+        (message.sender === currentUserId && message.receiver === selectedContact?._id) ||
+        (message.sender === selectedContact?._id && message.receiver === currentUserId)
+      ) {
+        setMessages((prevMessages) => [...prevMessages, message]);
+      }
+    };
+
+    socket.on("chat message", handleNewMessage);
 
     return () => {
-      socket.off("chat message");
+      socket.off("chat message", handleNewMessage);
     };
-  }, []);
+  }, [currentUserId, selectedContact]);
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
-    if (newMessage.trim() === "") return;
+    if (newMessage.trim() === "" || !selectedContact || !currentUserId) return;
 
     const messageToSend = {
       sender: currentUserId,
       receiver: selectedContact._id,
       text: newMessage,
+      timestamp: new Date().toISOString(),
     };
 
     try {
+      // Post the message to the database
       await axios.post("http://localhost:3001/api/messages", messageToSend);
-      setMessages((prevMessages) => [...prevMessages, messageToSend]);
+
+      // Emit the message to the server for real-time delivery
       socket.emit("chat message", messageToSend);
+
       setNewMessage("");
     } catch (error) {
       console.error("Error sending message:", error);
@@ -108,7 +135,8 @@ const Message = () => {
           {contacts.map((contact) => (
             <div
               key={contact._id}
-              className="p-4 py-5 flex items-center hover:bg-primary hover:text-white cursor-pointer border-b border-gray-300"
+              className={`p-4 py-5 flex items-center hover:bg-gray-200 cursor-pointer border-b border-gray-300
+              ${contact._id === selectedContact?._id ? "bg-primary text-white" : "bg-secondary"}`}
               onClick={() => setSelectedContact(contact)}
             >
               <h3 className="font-semibold">
@@ -126,44 +154,42 @@ const Message = () => {
           </h2>
         </div>
         <div className="flex-grow overflow-y-auto p-4 bg-gray-100">
-          
-            {messages.map((message, index) => (
+          {messages.map((message, index) => (
+            <div
+              key={index}
+              className={`flex ${
+                message.sender === currentUserId
+                  ? "justify-end"
+                  : "justify-start"
+              } mb-2`}
+            >
+              {message.sender !== currentUserId && (
+                <p className="text-gray-500 text-xs mb-1 mr-2 ">
+                  {new Date(message.timestamp).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </p>
+              )}
               <div
-                key={index}
-                className={`flex ${
+                className={`p-2 px-4 rounded-lg ${
                   message.sender === currentUserId
-                    ? "justify-end"
-                    : "justify-start"
-                } mb-2`}
+                    ? "bg-blue-500 text-white"
+                    : "bg-gray-300 text-black"
+                }`}
               >
-                {message.sender !== currentUserId && (
-                  <p className="text-gray-500 text-xs mb-1 mr-2 ">
-                    {new Date(message.timestamp).toLocaleTimeString([], {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
-                  </p>
-                )}
-                <div
-                  className={`p-2 px-4 rounded-lg ${
-                    message.sender === currentUserId
-                      ? "bg-blue-500 text-white"
-                      : "bg-gray-300 text-black"
-                  }`}
-                >
-                  <p>{message.text}</p>
-                </div>
-                {message.sender === currentUserId && (
-                  <p className="text-gray-500 text-xs mb-1 ml-2">
-                    {new Date(message.timestamp).toLocaleTimeString([], {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
-                  </p>
-                )}
+                <p>{message.text}</p>
               </div>
-            ))}
-          
+              {message.sender === currentUserId && (
+                <p className="text-gray-500 text-xs mb-1 ml-2">
+                  {new Date(message.timestamp).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </p>
+              )}
+            </div>
+          ))}
         </div>
 
         <form

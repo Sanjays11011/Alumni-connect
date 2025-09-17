@@ -8,7 +8,7 @@ const AddDonation = ({ onClose, refreshDonations }) => {
         intro: "",
         review: "",
         requirements: [],
-        amount: "" // Updated to a single value
+        amount: "" 
     });
     
     const [requirementInput, setRequirementInput] = useState("");
@@ -113,7 +113,7 @@ const AddDonation = ({ onClose, refreshDonations }) => {
 
                     {/* Amount input field */}
                     <div className="flex flex-col m-3 gap-4 w-3/4">
-                        <label htmlFor="amount">Donation Amount</label>
+                        <label htmlFor="amount">Expected Amount</label>
                         <input
                             type="number"
                             name="amount"
@@ -126,7 +126,7 @@ const AddDonation = ({ onClose, refreshDonations }) => {
                     </div>
                 </form>
                 <button type="submit" className="bg-primary duration-200 hover:bg-blue-500 text-white rounded-xl px-10 py-2 m-7 w-30" onClick={handleSubmit}>
-                    Add Donation
+                    Add Donation Request
                 </button>
             </div>
         </>

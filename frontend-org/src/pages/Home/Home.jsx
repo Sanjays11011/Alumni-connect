@@ -74,14 +74,7 @@ const Home = () => {
           {jobs.map((job) => (
             <Link to={`/job/${job._id}`} key={job._id}>
               <div className="w-full h-1/2 p-3 border-2 rounded-lg mb-2 cursor-pointer hover:border-primary">
-                <div className="w-1/2 h-10 m-6 flex items-center">
-                  <Icon icon="gg:profile" className="w-10 h-10 rounded-full border" />
-                  <div className="flex flex-col space-y-2">
-                    <h3 className="ml-3 text-xl"></h3>
-                    <p className="ml-3 items-center text-sm">{job.location}</p>
-                  </div>
-                </div>
-                <h1 className="m-3 text-3xl flex items-center text-black font-bold">
+                <h1 className="m-3 mt-5 text-3xl flex items-center text-black font-bold">
                   <Icon
                     icon="arcticons:jobstreet"
                     width="3rem"
@@ -128,13 +121,9 @@ const Home = () => {
           <div
             className="w-full h-1/4 cursor-pointer border-2 duration-300 hover:border-primary rounded-lg mb-2 items-center flex"
           >
-            <img
-              src={event.image}
-              className="h-full w-1/4 p-3 rounded-lg"
-              alt={event.title}
-            />
-            <div className="w-2/3 p-3 flex space-y-3 flex-col">
-              <h4 className="text-xl font-semibold">{event.title}</h4>
+             
+            <div className="w-2/3 p-3 flex space-y-3  flex-col">
+              <h4 className="text-2xl font-semibold">{event.title}</h4>
               <p>{event.topic}</p>
               <p className="text-sm opacity-60 font-bold">
               {new Date(event.date).toDateString()}</p>
