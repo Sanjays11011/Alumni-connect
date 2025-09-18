@@ -15,7 +15,7 @@ const Profile = () => {
     degree: "",
     passingoutyear: "",
     studyyear: "",
-    aboutme: "",
+    successStory: "",
   });
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const Profile = () => {
           degree: data.degree || "",
           passingoutyear: data.passingoutyear || "",
           studyyear: data.studyyear || "",
-          aboutme: data.successStory || "",
+          successStory: data.successStory || "",
         });
       } catch (error) {
         console.log("Error fetching profile:", error);
@@ -149,7 +149,7 @@ const Profile = () => {
                   return null;
                 }
                 return (
-                  <div key={key} className="flex flex-col">
+                  <div key={key} className={`flex flex-col ${key === "successStory" ? "md:col-span-2" : ""}`}>
                     <label className="text-sm font-medium text-gray-600 capitalize mb-1">
                       {formatLabel(key)}
                     </label>

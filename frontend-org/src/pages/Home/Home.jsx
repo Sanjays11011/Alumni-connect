@@ -12,6 +12,7 @@ const Home = () => {
   const [jobs, setJobs] = useState([]);
   const [events,setEvents] = useState([]);
   const [userRole, setUserRole] = useState("");
+  const [currentUserId, setCurrentUserId] = useState(null);
 
   useEffect(() => {
     fetchJobs();
@@ -39,17 +40,36 @@ const Home = () => {
     }
   };
 
-  const fetchUserRole = async () => {
+  
+
+// In the useEffect hook for fetching user role, also fetch the user's ID
+const fetchUserRole = async () => {
     try {
-      const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:3001/api/profile", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setUserRole(response.data.role);
+        const token = localStorage.getItem("token");
+        const response = await axios.get("http://localhost:3001/api/profile", {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+        setUserRole(response.data.role);
+        setCurrentUserId(response.data.userId); // Store the current user's ID
     } catch (error) {
-      console.error("Error fetching user data:", error);
+        console.error("Error fetching user data:", error);
     }
-  };
+};
+
+// Add a new function to handle job deletion
+const handleDeleteJob = async (jobId) => {
+    try {
+        const token = localStorage.getItem("token");
+        await axios.delete(`http://localhost:3001/api/jobs/${jobId}`, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+        // After successful deletion, refresh the job list
+        fetchJobs();
+    } catch (error) {
+        console.error("Error deleting job:", error);
+        alert("You are not authorized to delete this job.");
+    }
+};
 
   const calculateDaysAgo = (postedDate) => {
     const currentDate = new Date();
@@ -72,8 +92,9 @@ const Home = () => {
         </div>
         <div>
           {jobs.map((job) => (
-            <Link to={`/job/${job._id}`} key={job._id}>
-              <div className="w-full h-1/2 p-3 border-2 rounded-lg mb-2 cursor-pointer hover:border-primary">
+             <div key={job._id} className="w-full h-1/2 p-3 border-2 rounded-lg mb-2 cursor-pointer hover:border-primary relative">
+              <Link to={`/job/${job._id}`}>
+             
                 <h1 className="m-3 mt-5 text-3xl flex items-center text-black font-bold">
                   <Icon
                     icon="arcticons:jobstreet"
@@ -99,8 +120,10 @@ const Home = () => {
                   ))}
                 </ul>
                 <p className="mt-5 !border-none job-opening">{calculateDaysAgo(job.posted)} days ago</p>
-              </div>
+             
             </Link>
+             
+            </div>
           ))}
         </div>
       </div>
