@@ -4,14 +4,14 @@ import '../../App.css'
 
 const Discussion = () => {
   const [selectedQuery, setSelectedQuery] = useState(null);
-  const [newReply, setNewReply] = useState(''); // State for new reply
+  const [newReply, setNewReply] = useState(''); 
 
   const handleClick = (id) => {
     setSelectedQuery(id);
   };
 
   const handleReplyChange = (e) => {
-    setNewReply(e.target.value); // Update reply input
+    setNewReply(e.target.value); 
   };
 
   const handleReplySubmit = (e) => {

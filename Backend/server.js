@@ -7,36 +7,34 @@ const profileRoutes = require('./routes/profile');
 const jobRoutes = require('./routes/job');
 const eventRoutes = require('./routes/event');
 const donationRoutes = require('./routes/donation');
-const messageRoutes = require('./routes/message'); // Add this line
+const messageRoutes = require('./routes/message'); 
 const contactRoutes = require('./routes/contact');
-const http = require('http'); // Import http to create a server
-const { Server } = require('socket.io'); // Import socket.io
+const http = require('http'); 
+const { Server } = require('socket.io'); 
+const path = require('path');
+const bodyParser = require('body-parser');
 
 dotenv.config();
 
 const app = express();
-const server = http.createServer(app); // Create an HTTP server
+const server = http.createServer(app); 
 const io = new Server(server, 
   {cors: {
-  origin: 'http://localhost:5173', // Allow requests from this origin
-  methods: ['GET', 'POST'],        // Allow specific methods
-  credentials: true                // Enable credentials if necessary
-}}); // Create a new instance of Socket.IO with the HTTP server
+  origin: 'http://localhost:5173',
+  methods: ['GET', 'POST'],        
+  credentials: true               
+}}); 
 
 app.use(express.json());
 
-// Enable CORS
 app.use(cors({
-  origin: 'http://localhost:5173', // Frontend URL
+  origin: 'http://localhost:5173', 
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true, // Allow credentials such as cookies
+  credentials: true,
 }));
-
+app.use(bodyParser.json());
 // Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log('MongoDB connection error:', err));
 
@@ -46,10 +44,10 @@ app.use('/api', profileRoutes);
 app.use('/api', jobRoutes);
 app.use('/api', eventRoutes);
 app.use('/api', donationRoutes);
-app.use('/api', messageRoutes); // Add this line
+app.use('/api', messageRoutes); 
 app.use('/api',contactRoutes);
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Search Route
 app.get('/api/search', async (req, res) => {
   const searchQuery = req.query.name;
 
@@ -69,8 +67,7 @@ app.get('/api/search', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
-
-// Route to fetch user details by ID
+  
 app.get('/api/user/:id', async (req, res) => {
   try {
     const userId = req.params.id;
@@ -87,25 +84,19 @@ app.get('/api/user/:id', async (req, res) => {
   }
 });
 
-
-
-// Socket.IO connection
 io.on('connection', (socket) => {
   console.log('A user connected:', socket.id);
 
-  // Handle chat message event
   socket.on('chat message', (msg) => {
     console.log('Message received:', msg);
-    io.emit('chat message', msg); // Broadcast the message to all connected clients
+    io.emit('chat message', msg); 
   });
 
-  // Handle disconnection
   socket.on('disconnect', () => {
     console.log('User disconnected:', socket.id);
   });
 });
 
-// Start the server
 const PORT = process.env.PORT || 3001;
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

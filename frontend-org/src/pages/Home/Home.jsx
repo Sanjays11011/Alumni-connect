@@ -12,6 +12,7 @@ const Home = () => {
   const [jobs, setJobs] = useState([]);
   const [events,setEvents] = useState([]);
   const [userRole, setUserRole] = useState("");
+  const [currentUserId, setCurrentUserId] = useState(null);
 
   useEffect(() => {
     fetchJobs();
@@ -39,17 +40,36 @@ const Home = () => {
     }
   };
 
-  const fetchUserRole = async () => {
+  
+
+// In the useEffect hook for fetching user role, also fetch the user's ID
+const fetchUserRole = async () => {
     try {
-      const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:3001/api/profile", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setUserRole(response.data.role);
+        const token = localStorage.getItem("token");
+        const response = await axios.get("http://localhost:3001/api/profile", {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+        setUserRole(response.data.role);
+        setCurrentUserId(response.data.userId); // Store the current user's ID
     } catch (error) {
-      console.error("Error fetching user data:", error);
+        console.error("Error fetching user data:", error);
     }
-  };
+};
+
+// Add a new function to handle job deletion
+const handleDeleteJob = async (jobId) => {
+    try {
+        const token = localStorage.getItem("token");
+        await axios.delete(`http://localhost:3001/api/jobs/${jobId}`, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+        // After successful deletion, refresh the job list
+        fetchJobs();
+    } catch (error) {
+        console.error("Error deleting job:", error);
+        alert("You are not authorized to delete this job.");
+    }
+};
 
   const calculateDaysAgo = (postedDate) => {
     const currentDate = new Date();
@@ -72,16 +92,10 @@ const Home = () => {
         </div>
         <div>
           {jobs.map((job) => (
-            <Link to={`/job/${job._id}`} key={job._id}>
-              <div className="w-full h-1/2 p-3 border-2 rounded-lg mb-2 cursor-pointer hover:border-primary">
-                <div className="w-1/2 h-10 m-6 flex items-center">
-                  <Icon icon="gg:profile" className="w-10 h-10 rounded-full border" />
-                  <div className="flex flex-col space-y-2">
-                    <h3 className="ml-3 text-xl"></h3>
-                    <p className="ml-3 items-center text-sm">{job.location}</p>
-                  </div>
-                </div>
-                <h1 className="m-3 text-3xl flex items-center text-black font-bold">
+             <div key={job._id} className="w-full h-1/2 p-3 border-2 rounded-lg mb-2 cursor-pointer hover:border-primary relative">
+              <Link to={`/job/${job._id}`}>
+             
+                <h1 className="m-3 mt-5 text-3xl flex items-center text-black font-bold">
                   <Icon
                     icon="arcticons:jobstreet"
                     width="3rem"
@@ -106,8 +120,10 @@ const Home = () => {
                   ))}
                 </ul>
                 <p className="mt-5 !border-none job-opening">{calculateDaysAgo(job.posted)} days ago</p>
-              </div>
+             
             </Link>
+             
+            </div>
           ))}
         </div>
       </div>
@@ -128,13 +144,9 @@ const Home = () => {
           <div
             className="w-full h-1/4 cursor-pointer border-2 duration-300 hover:border-primary rounded-lg mb-2 items-center flex"
           >
-            <img
-              src={event.image}
-              className="h-full w-1/4 p-3 rounded-lg"
-              alt={event.title}
-            />
-            <div className="w-2/3 p-3 flex space-y-3 flex-col">
-              <h4 className="text-xl font-semibold">{event.title}</h4>
+             
+            <div className="w-2/3 p-3 flex space-y-3  flex-col">
+              <h4 className="text-2xl font-semibold">{event.title}</h4>
               <p>{event.topic}</p>
               <p className="text-sm opacity-60 font-bold">
               {new Date(event.date).toDateString()}</p>

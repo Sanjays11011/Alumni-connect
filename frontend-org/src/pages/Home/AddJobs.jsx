@@ -1,12 +1,13 @@
+// AddJobs.jsx
 import React, { useState } from "react";
-import axios from "axios"; // Import axios for API calls
+import axios from "axios";
 import '../../App.css'
 import { Icon } from '@iconify/react'
 
 const AddJobs = ({ onClose, refreshJobs }) => {
   const [formData, setFormData] = useState({
     jobName: "",
-    requirements: [], // Changed to an array to store multiple requirements
+    requirements: [],
     location: "",
     jobType: "",
     company: "",
@@ -16,7 +17,7 @@ const AddJobs = ({ onClose, refreshJobs }) => {
     description: "",
   });
 
-  const [requirementInput, setRequirementInput] = useState(""); // To hold individual requirement input
+  const [requirementInput, setRequirementInput] = useState("");
 
   const inputFields = [
     { label: "Job Name", name: "jobName" },
@@ -25,23 +26,20 @@ const AddJobs = ({ onClose, refreshJobs }) => {
     { label: "Link", name: "link" }
   ];
 
-  // Handles input change for normal fields
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handles adding a requirement to the list
   const handleAddRequirement = () => {
     if (requirementInput.trim()) {
       setFormData((prevData) => ({
         ...prevData,
         requirements: [...prevData.requirements, requirementInput],
       }));
-      setRequirementInput(""); // Clear input field after adding
+      setRequirementInput("");
     }
   };
 
-  // Handles removing a requirement from the list
   const handleRemoveRequirement = (index) => {
     setFormData((prevData) => ({
       ...prevData,
@@ -51,30 +49,59 @@ const AddJobs = ({ onClose, refreshJobs }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+     if (!formData.jobName || !formData.company || !formData.location || formData.requirements.length === 0 || !formData.jobType || !formData.salaryLow || !formData.salaryHigh || !formData.description) {
+        alert("Please fill in all required fields.");
+        return;
+    }
+
     try {
-      await axios.post('http://localhost:3001/api/jobs', formData); // Update with your API route
-      refreshJobs(); // Call the function to refresh the jobs list after adding
-      onClose(); // Close the modal
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.error("No token found. User not authenticated.");
+        alert("Please log in to add a job.");
+        return;
+      }
+      
+      const dataToSend = {
+        ...formData,
+        salaryLow: Number(formData.salaryLow),
+        salaryHigh: Number(formData.salaryHigh),
+      };
+
+      await axios.post('http://localhost:3001/api/jobs', dataToSend, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      refreshJobs();
+      onClose();
+      alert("Job added successfully!");
     } catch (error) {
-      console.error('Error adding job:', error);
+      console.error('Error adding job:', error.response ? error.response.data.message : error.message);
+      alert("Failed to add job. Check console for details.");
     }
   };
 
   return (
     <>
-      <div className='fixed w-[100vw] h-screen top-0 left-0 bg-black opacity-60'></div>
-      <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-auto w-3/4 bg-white z-20 shadow-lg rounded-md overflow-y-auto max-h-[80vh] custom-scrollbar">
-        <button className="absolute top-3 right-3" onClick={onClose}><Icon icon="iconamoon:close-bold" width="2rem" height="2rem"/></button>
-        <p className="m-3 text-xl border-b">Add Jobs</p>
-        <form className='grid grid-cols-2' onSubmit={handleSubmit}>
+      <div className='fixed w-full h-screen top-0 left-0 bg-black opacity-60'></div>
+      <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-auto w-3/4 bg-white z-20 shadow-lg rounded-md overflow-y-auto max-h-[80vh] font-manrope">
+        <button className="absolute top-3 right-3 text-gray-500 hover:text-gray-700" onClick={onClose}>
+          <Icon icon="iconamoon:close-bold" width="2rem" height="2rem" />
+        </button>
+        <p className="m-5 text-2xl font-semibold border-b pb-2">Add Jobs</p>
+        
+        <form className='grid grid-cols-1 md:grid-cols-2 gap-x-10 px-10' onSubmit={handleSubmit}>
           {inputFields.map((input) => (
-            <div className="flex flex-col m-3 gap-4 w-3/4" key={input.name}>
-              <label htmlFor={input.name}>{input.label}</label>
+            <div className="flex flex-col mb-4" key={input.name}>
+              <label htmlFor={input.name} className="font-medium text-gray-700">{input.label}</label>
               <input
                 type="text"
                 name={input.name}
                 id={input.name}
-                className="input-style"
+                className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
                 value={formData[input.name]}
                 onChange={handleInputChange}
                 required
@@ -82,13 +109,12 @@ const AddJobs = ({ onClose, refreshJobs }) => {
             </div>
           ))}
 
-          {/* Job Type dropdown */}
-          <div className="flex flex-col m-3 gap-4 w-3/4">
-            <label htmlFor="jobType">Job Type</label>
+          <div className="flex flex-col mb-4">
+            <label htmlFor="jobType" className="font-medium text-gray-700">Job Type</label>
             <select
               name="jobType"
               id="jobType"
-              className="input-style"
+              className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
               value={formData.jobType}
               onChange={handleInputChange}
               required
@@ -97,23 +123,23 @@ const AddJobs = ({ onClose, refreshJobs }) => {
               <option value="Remote">Remote</option>
               <option value="Part-time">Part-time</option>
               <option value="Full-time">Full-time</option>
+              <option value="Internship">Internship</option>
             </select>
           </div>
 
-          {/* Requirements input with add/remove functionality */}
-          <div className="flex flex-col m-3 gap-4 w-3/4">
-            <label htmlFor="requirements">Requirements</label>
+          <div className="flex flex-col mb-4">
+            <label htmlFor="requirements" className="font-medium text-gray-700">Requirements</label>
             <div className="flex items-center gap-3">
               <input
                 type="text"
                 placeholder="Add a requirement"
-                className="input-style"
+                className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 flex-grow transition-colors"
                 value={requirementInput}
                 onChange={(e) => setRequirementInput(e.target.value)}
               />
               <button
                 type="button"
-                className="bg-primary duration-200 hover:bg-blue-500 text-white rounded-xl px-3 py-2"
+                className="bg-blue-600 text-white rounded-md px-4 py-2 hover:bg-blue-700 transition-colors"
                 onClick={handleAddRequirement}
               >
                 Add
@@ -121,7 +147,7 @@ const AddJobs = ({ onClose, refreshJobs }) => {
             </div>
             <div className="flex flex-wrap gap-2 mt-2">
               {formData.requirements.map((requirement, index) => (
-                <div key={index} className="bg-gray-200 px-3 py-1 rounded-full flex items-center">
+                <div key={index} className="bg-gray-200 px-3 py-1 rounded-full flex items-center text-sm">
                   {requirement}
                   <button
                     type="button"
@@ -135,45 +161,51 @@ const AddJobs = ({ onClose, refreshJobs }) => {
             </div>
           </div>
 
-          {/* Salary input field with low-high range */}
-          <div className="flex flex-col m-3 gap-4 w-3/4">
-            <label htmlFor="salary">Salary (Low - High)</label>
+          <div className="flex flex-col mb-4">
+            <label htmlFor="salary" className="font-medium text-gray-700">Salary (LPA)</label>
             <div className="flex items-center gap-3">
               <input
                 type="number"
                 name="salaryLow"
                 placeholder="Low"
-                className="input-style w-1/2"
+                className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-1/2 transition-colors"
                 value={formData.salaryLow}
                 onChange={handleInputChange}
+                required
               />
               <input
                 type="number"
                 name="salaryHigh"
                 placeholder="High"
-                className="input-style w-1/2"
+                className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-1/2 transition-colors"
                 value={formData.salaryHigh}
                 onChange={handleInputChange}
+                required
               />
-              <span>LPA</span>
             </div>
           </div>
 
-          <div className="flex flex-col m-3 gap-4 w-3/4">
-            <label htmlFor="description">Role Description</label>
+          <div className="flex flex-col mb-4 md:col-span-2">
+            <label htmlFor="description" className="font-medium text-gray-700">Role Description</label>
             <textarea
-              type="text"
               name="description"
               id="description"
-              className="h-10 input-style"
+              className="h-24 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
               value={formData.description}
               onChange={handleInputChange}
+              required
             />
           </div>
+
+          <div className="md:col-span-2 flex justify-center">
+            <button
+              type="submit"
+              className="bg-blue-600 text-white rounded-lg px-10 py-3 mb-5 hover:bg-blue-700 transition-colors shadow-md"
+            >
+              Add Job
+            </button>
+          </div>
         </form>
-        <button type="submit" className="bg-primary duration-200 hover:bg-blue-500 text-white rounded-xl px-10 py-2 m-7 w-1/4" onClick={handleSubmit}>
-          Add
-        </button>
       </div>
     </>
   );

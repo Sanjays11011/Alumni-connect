@@ -39,7 +39,7 @@ const Donation = () => {
         <div key={index} className="relative border border-black mb-4 rounded-md p-4">
           <h2 className="text-2xl font-semibold">Request for Student Innovation Project - {donation.title}</h2>
           <p className="text-xl">{donation.intro}</p>
-          <h3 className="text-xl font-semibold">Review</h3>
+          <h3 className="text-xl font-semibold mt-3">Project Review</h3>
           <p className="text-xl">{donation.review}</p>
 
           <h3 className="mt-5 text-xl font-semibold">Requirements</h3>
